@@ -1,5 +1,4 @@
-﻿using System;
-namespace GalaxisProjectWebAPI.DataModel
+﻿namespace GalaxisProjectWebAPI.DataModel
 {
     public class Funds
     {
