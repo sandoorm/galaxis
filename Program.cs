@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
-namespace GalaxisProject_WebAPI
+using GalaxisProject_WebAPI;
+
+namespace Galaxis_WebAPI
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+            var config = new ConfigurationBuilder()
+                .AddEnvironmentVariables("")
+                .Build();
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            var url = config["ASPNETCORE_URLS"] ?? "http://*:8080";
+
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseUrls(url)
+                .Build()
+                .Run();
+        }
     }
 }
