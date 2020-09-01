@@ -1,3 +1,5 @@
+/docker-compose.dcproj
+
 # globs
 Makefile.in
 *.userprefs
