@@ -11,7 +11,7 @@ namespace GalaxisProject_WebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "MyValue!!!!!" };
+            return new string[] { "swagger", "The valueeeeeee!!!!!!!!" };
         }
 
         // GET api/values/5
