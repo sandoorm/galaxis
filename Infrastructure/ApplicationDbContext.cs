@@ -4,7 +4,8 @@ namespace GalaxisProjectWebAPI.Infrastructure
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> optionsBuilder)
+            : base(optionsBuilder)
         {
         }
     }
