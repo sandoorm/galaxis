@@ -47,12 +47,7 @@ namespace GalaxisProject_WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
 
-            app.UseHttpsRedirection();
             app.UseMvc();
 
             app.UseSwagger();
@@ -61,6 +56,7 @@ namespace GalaxisProject_WebAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Galaxis backend WebAPI v1");
                 c.RoutePrefix = string.Empty;
             });
+
         }
     }
 }
