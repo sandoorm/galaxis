@@ -52,15 +52,15 @@ namespace GalaxisProject_WebAPI
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
+            app.UseMvc();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Galaxis backend WebAPI v1");
                 c.RoutePrefix = string.Empty;
             });
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
         }
     }
 }
