@@ -33,10 +33,6 @@ namespace GalaxisProject_WebAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Galaxis backend WebAPI", Version = "v1" });
-
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
             });
         }
 
