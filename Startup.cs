@@ -27,8 +27,8 @@ namespace GalaxisProject_WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql("User ID=galaxis;Password=galaxis;Host=localhost;Port=5432;Database=galaxis;"));
+            // services.AddDbContext<ApplicationDbContext>(options =>
+            //     options.UseNpgsql("User ID=galaxis;Password=galaxis;Host=localhost;Port=5432;Database=galaxis;"));
 
             services.AddSwaggerGen(c =>
             {
