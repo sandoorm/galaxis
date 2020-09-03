@@ -9,25 +9,24 @@ namespace GalaxisProjectWebAPI.Controllers
     [ApiController]
     public class FundsController : ControllerBase
     {
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Fund>> Get()
+        public ActionResult<IEnumerable<Fund>> GetAllFunds()
         {
             return Ok(new List<Fund>
-             {
-                 new Fund
-                 {
-                     FundName = "Best Fund",
-                     InvestmentFundManagerName = "Sandor Maraczy",
-                     FloorLevel = 0.7
-                 },
-                 new Fund
-                 {
-                     FundName = "Galaxis Fund LTD",
-                     InvestmentFundManagerName = "Mate Brezovszki",
-                     FloorLevel = 0.6
-                 }
-             });
+            {
+                new Fund
+                {
+                    FundName = "Best Fund",
+                    InvestmentFundManagerName = "Sandor Maraczy",
+                    FloorLevel = 0.7
+                },
+                new Fund
+                {
+                    FundName = "Galaxis Fund LTD",
+                    InvestmentFundManagerName = "Mate Brezovszki",
+                    FloorLevel = 0.6
+                }
+            });
         }
     }
 }
