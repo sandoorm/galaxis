@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +23,8 @@ namespace GalaxisProject_WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            // services.AddDbContext<ApplicationDbContext>(options =>
-            //     options.UseNpgsql("User ID=galaxis;Password=galaxis;Host=localhost;Port=5432;Database=galaxis;"));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql("User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;"));
 
             services.AddSwaggerGen(c =>
             {
