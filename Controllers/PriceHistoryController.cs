@@ -16,9 +16,9 @@ namespace GalaxisProjectWebAPI.Controllers
             var result = new List<TokenPriceHistory>();
             if (currencyPair == "eth-usd")
             {
-                result.Add(new TokenPriceHistory { ID = 1, Timestamp = 1600194556, USD_Price = 356, EUR_Price = 310 }) ;
-                result.Add(new TokenPriceHistory { ID = 2, Timestamp = 1600194546, USD_Price = 356.3, EUR_Price = 310.3 });
-                result.Add(new TokenPriceHistory { ID = 3, Timestamp = 1600194536, USD_Price = 356.8, EUR_Price = 310.8 });
+                result.Add(new TokenPriceHistory { Id = 1, Timestamp = 1600194556, USD_Price = 356, EUR_Price = 310 }) ;
+                result.Add(new TokenPriceHistory { Id = 2, Timestamp = 1600194546, USD_Price = 356.3, EUR_Price = 310.3 });
+                result.Add(new TokenPriceHistory { Id = 3, Timestamp = 1600194536, USD_Price = 356.8, EUR_Price = 310.8 });
             }
 
             return result;

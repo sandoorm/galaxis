@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 
 using GalaxisProjectWebAPI.Model;
-using System.Threading.Tasks;
 
 namespace GalaxisProjectWebAPI.Controllers
 {

@@ -11,9 +11,9 @@ namespace GalaxisProjectWebAPI.Model
             this.fund = fund;
         }
 
-        public int ID => fund.ID;
+        public int ID => fund.Id;
 
-        public int CompanyId => fund.CompanyID;
+        public int CompanyId => fund.CompanyId;
 
         public string FundName => fund.FundName;
 

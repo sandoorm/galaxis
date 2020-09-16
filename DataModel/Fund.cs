@@ -1,14 +1,21 @@
-﻿namespace GalaxisProjectWebAPI.DataModel
+﻿using System.Collections.Generic;
+
+namespace GalaxisProjectWebAPI.DataModel
 {
     public class Fund
     {
-        public int ID { get; set; }
-        public int CompanyID { get; set; }
+        public Fund()
+        {
+            FundTokens = new List<FundToken>();
+        }
+
+        public int Id { get; set; }
+        public int CompanyId { get; set; }
         public string FundName { get; internal set; }
         public string InvestmentFundManagerName { get; internal set; }
         public double FloorLevel { get; internal set; }
-        public FundToken FundToken { get; set; }
 
         public Company Company { get; set; }
+        public List<FundToken> FundTokens { get; set; }
     }
 }
