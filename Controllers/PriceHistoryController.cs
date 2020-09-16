@@ -2,8 +2,7 @@
 
 using System.Collections.Generic;
 
-using GalaxisProjectWebAPI.Model;
-
+using GalaxisProjectWebAPI.DataModel;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -11,15 +10,15 @@ namespace GalaxisProjectWebAPI.Controllers
     [ApiController]
     public class PriceHistoryController
     {
-        [HttpGet("{id}")]
-        public ActionResult<IEnumerable<CandlestickPriceData>> GetHistoricPriceData(string id)
+        [HttpGet("{currencyPair}")]
+        public ActionResult<IEnumerable<TokenPriceHistory>> GetHistoricPriceData(string currencyPair)
         {
-            var result = new List<CandlestickPriceData>();
-            if (id == "eth-dai")
+            var result = new List<TokenPriceHistory>();
+            if (currencyPair == "eth-usd")
             {
-                result.Add(new CandlestickPriceData { TimeStamp = "34543434343", Price = 378, Open = 379, High = 380, Low = 378.6 }) ;
-                result.Add(new CandlestickPriceData { TimeStamp = "45674343445", Price = 378.2, Open = 379.5, High = 381, Low = 377.9 });
-                result.Add(new CandlestickPriceData { TimeStamp = "34565434577", Price = 378.5, Open = 379.7, High = 381.2, Low = 377.6 });
+                result.Add(new TokenPriceHistory { ID = 1, Timestamp = 1600194556, USD_Price = 356, EUR_Price = 310 }) ;
+                result.Add(new TokenPriceHistory { ID = 2, Timestamp = 1600194546, USD_Price = 356.3, EUR_Price = 310.3 });
+                result.Add(new TokenPriceHistory { ID = 3, Timestamp = 1600194536, USD_Price = 356.8, EUR_Price = 310.8 });
             }
 
             return result;

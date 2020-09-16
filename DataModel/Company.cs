@@ -11,5 +11,6 @@ namespace GalaxisProjectWebAPI.DataModel
         public string Address { get; set; }
 
         public ICollection<Fund> Funds { get; set; }
+        public ICollection<CompanyRepresentative> CompanyRepresentatives { get; set; }
     }
 }

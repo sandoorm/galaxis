@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 using GalaxisProjectWebAPI.Infrastructure;
+using GalaxisProjectWebAPI.Model;
 
 namespace GalaxisProject_WebAPI
 {
@@ -26,6 +27,8 @@ namespace GalaxisProject_WebAPI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql("User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;"));
 
+            services.AddScoped<IFundRepository, FundRepository>();
+           
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Galaxis backend WebAPI", Version = "v1" });
