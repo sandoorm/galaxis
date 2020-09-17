@@ -50,6 +50,18 @@ namespace GalaxisProjectWebAPI.Controllers
             return id;
         }
 
+        [HttpGet("{id}/Tokens")]
+        public ActionResult<int> GetCurrentFundTokensById(int id)
+        {
+            return id;
+        }
+
+        [HttpGet("{id}/Performance")]
+        public ActionResult<FundPerformance> GetCurrentFundPerformance(int id)
+        {
+            return new FundPerformance();
+        }
+
         [HttpPost]
         public async Task<int> CreateFund()
         {
