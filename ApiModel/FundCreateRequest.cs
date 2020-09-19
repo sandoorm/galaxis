@@ -2,10 +2,10 @@
 {
     public class FundCreateRequest
     {
-        public string FundName { get; internal set; }
-        public string InvestmentFundManagerName { get; internal set; }
-        public double FloorLevel { get; internal set; }
-        public string Address { get; internal set; }
-        public string CompanyName { get; internal set; }
+        public string FundName { get; set; }
+        public string InvestmentFundManagerName { get; set; }
+        public double FloorLevel { get; set; }
+        public string Address { get; set; }
+        public string CompanyName { get; set; }
     }
 }

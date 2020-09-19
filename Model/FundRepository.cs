@@ -32,7 +32,7 @@ namespace GalaxisProjectWebAPI.Model
                 {
                     Address = fundCreateRequest.Address,
                     CompanyName = fundCreateRequest.CompanyName
-                }
+                }      
             };
 
             try
