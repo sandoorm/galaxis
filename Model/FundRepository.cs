@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.Infrastructure;
 
 namespace GalaxisProjectWebAPI.Model
@@ -20,17 +21,17 @@ namespace GalaxisProjectWebAPI.Model
             return this.dbContext.Funds.Select(fund => new Model.Fund(fund));
         }
 
-        public async Task<int> CreateFundAsync()
+        public async Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest)
         {
             DataModel.Fund fund = new DataModel.Fund
             {
-                FundName = "My Galaxis Fund!!",
-                InvestmentFundManagerName = "Sandoor",
-                FloorLevel = 0.7,
+                FundName = fundCreateRequest.FundName,
+                InvestmentFundManagerName = fundCreateRequest.InvestmentFundManagerName,
+                FloorLevel = fundCreateRequest.FloorLevel,
                 Company = new DataModel.Company
                 {
-                    Address = "Futrinka str",
-                    CompanyName = "Best Company"
+                    Address = fundCreateRequest.Address,
+                    CompanyName = fundCreateRequest.CompanyName
                 }
             };
 

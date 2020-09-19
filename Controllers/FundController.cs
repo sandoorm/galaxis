@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
 using GalaxisProjectWebAPI.Model;
 using System.Threading.Tasks;
+using GalaxisProjectWebAPI.ApiModel;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -63,9 +63,9 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<int> CreateFund()
+        public async Task<int> CreateFund(FundCreateRequest fundCreateRequest)
         {
-            return await this.fundRepository.CreateFundAsync();
+            return await this.fundRepository.CreateFundAsync(fundCreateRequest);
         }
 
         [HttpPut("{id}")]
