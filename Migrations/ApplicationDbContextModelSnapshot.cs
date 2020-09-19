@@ -58,7 +58,7 @@ namespace GalaxisProjectWebAPI.Migrations
 
                     b.Property<int>("TokenId");
 
-                    b.Property<int>("FundTokenId");
+                    b.Property<int>("Id");
 
                     b.Property<int>("Quantity");
 

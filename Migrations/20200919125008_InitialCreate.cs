@@ -84,7 +84,7 @@ namespace GalaxisProjectWebAPI.Migrations
                 name: "FundToken",
                 columns: table => new
                 {
-                    FundTokenId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     Timestamp = table.Column<long>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     FundId = table.Column<int>(nullable: false),

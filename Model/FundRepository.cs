@@ -48,5 +48,25 @@ namespace GalaxisProjectWebAPI.Model
 
             return 0;
         }
+
+        public async Task<int> CreateFundToken(int id, FundTokenCreateRequest fundTokenCreateRequest)
+        {
+            var requestedFund = await this.dbContext.Funds.FindAsync(id);
+            var tokenToAssign = await this.dbContext.Tokens.FindAsync(2);
+
+            // this.dbContext.Tokens
+            //.FirstOrDefault(token => token.Name.Equals(fundTokenCreateRequest.TokenName));
+
+            requestedFund.FundTokens.Add(new DataModel.FundToken
+            {
+                FundId = id,
+                Quantity = 2,
+                Timestamp = 1600516876,
+                TokenId = tokenToAssign.Id
+            });
+
+            await this.dbContext.SaveChangesAsync();
+            return 0;
+        }
     }
 }

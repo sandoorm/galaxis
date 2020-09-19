@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GalaxisProjectWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200916181310_InitialCreate")]
+    [Migration("20200919125008_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,7 @@ namespace GalaxisProjectWebAPI.Migrations
 
                     b.Property<int>("TokenId");
 
-                    b.Property<int>("FundTokenId");
+                    b.Property<int>("Id");
 
                     b.Property<int>("Quantity");
 

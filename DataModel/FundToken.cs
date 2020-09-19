@@ -2,7 +2,7 @@
 {
     public class FundToken
     {
-        public int FundTokenId { get; set; }
+        public int Id { get; set; }
         public uint Timestamp { get; set; }
         public int Quantity { get; set; }
 
