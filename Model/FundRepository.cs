@@ -52,7 +52,7 @@ namespace GalaxisProjectWebAPI.Model
         public async Task<int> CreateFundToken(int id, FundTokenCreateRequest fundTokenCreateRequest)
         {
             var requestedFund = await this.dbContext.Funds.FindAsync(id);
-            var tokenToAssign = await this.dbContext.Tokens.FindAsync(2);
+            var tokenToAssign = await this.dbContext.Tokens.FindAsync(1);
 
             // this.dbContext.Tokens
             //.FirstOrDefault(token => token.Name.Equals(fundTokenCreateRequest.TokenName));
