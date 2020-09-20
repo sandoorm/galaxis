@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
+using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.DataModel;
 using GalaxisProjectWebAPI.Model;
 
@@ -22,6 +24,12 @@ namespace GalaxisProjectWebAPI.Controllers
         public IEnumerable<Company> GetAllCompanies()
         {
             return companyRepository.GetAllCompanies();
+        }
+
+        [HttpPost]
+        public Task<int> CreateCompanyAsync(CompanyCreateRequest companyCreateRequest)
+        {
+            return companyRepository.CreateCompanyAsync(companyCreateRequest);
         }
     }
 }
