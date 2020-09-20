@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,11 +67,11 @@ namespace GalaxisProjectWebAPI.Model
             return 0;
         }
 
-        private void AssignFundToCompany(Company company, DataModel.Fund fund)
+        private void AssignFundToCompany(Company company, DataModelFund fund)
         {
             if (company.Funds == null)
             {
-                company.Funds = new List<DataModel.Fund> { fund };
+                company.Funds = new List<DataModelFund> { fund };
             }
             else
             {
