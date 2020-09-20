@@ -30,6 +30,19 @@ namespace GalaxisProjectWebAPI.Model
 
         public ActionResult<FundAndTokens> GetFundAndTokensAsync(int fundId)
         {
+            var relevantFundTokens = this.dbContext.FundTokens
+                .Where(fundToken => fundToken.FundId == fundId);
+
+            var result = relevantFundTokens.Join(this.dbContext.Tokens,
+                fundToken => fundToken.TokenId,
+                token => token.Id,
+                (fundToken, token) => new
+                {
+                    fundToken.TokenId,
+                    fundToken.Timestamp,
+                    token.Symbol
+                }).ToList();
+
             //var result = this.dbContext.Funds
             //    .Join(this.dbContext.Tokens,
             //    fund => fund.Id,
