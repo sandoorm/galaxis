@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +26,22 @@ namespace GalaxisProjectWebAPI.Model
         public IEnumerable<Fund> GetAllFunds()
         {
             return this.dbContext.Funds.Select(fund => new Fund(fund));
+        }
+
+        public ActionResult<FundAndTokens> GetFundAndTokensAsync(int fundId)
+        {
+            //var result = this.dbContext.Funds
+            //    .Join(this.dbContext.Tokens,
+            //    fund => fund.Id,
+            //    token => token.,
+            //    (company, fund) => new
+            //    {
+            //        company.CompanyName,
+            //        fund.FundName
+            //    })
+            //    .ToList();
+
+            return null;
         }
 
         public async Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest)

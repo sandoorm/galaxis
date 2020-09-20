@@ -32,9 +32,9 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpGet("{id}/Tokens")]
-        public ActionResult<int> GetCurrentFundTokensById(int id)
+        public ActionResult<FundAndTokens> GetCurrentFundTokensById(int id)
         {
-            return id;
+            return this.fundRepository.GetFundAndTokensAsync(id);
         }
 
         [HttpGet("{id}/Performance")]
