@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using GalaxisProjectWebAPI.DataModel;
+using GalaxisProjectWebAPI.Model;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -10,22 +11,17 @@ namespace GalaxisProjectWebAPI.Controllers
     [ApiController]
     public class CompanyController
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<Company>> GetAllCompanies()
+        ICompanyRepository companyRepository;
+
+        public CompanyController(ICompanyRepository companyRepository)
         {
-            return new List<Company>
-            {
-                new Company
-                {
-                    CompanyName = "Galaxis",
-                    Address = "Nicest str. 21."
-                },
-                new Company
-                {
-                    CompanyName = "Best Company",
-                    Address = "Company str. 34."
-                }
-            };
+            this.companyRepository = companyRepository;
+        }
+
+        [HttpGet]
+        public IEnumerable<Company> GetAllCompanies()
+        {
+            return companyRepository.GetAllCompanies();
         }
     }
 }

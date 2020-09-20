@@ -28,7 +28,8 @@ namespace GalaxisProject_WebAPI
                 options.UseNpgsql("User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;"));
 
             services.AddScoped<IFundRepository, FundRepository>();
-           
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Galaxis backend WebAPI", Version = "v1" });

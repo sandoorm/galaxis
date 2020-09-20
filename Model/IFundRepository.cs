@@ -7,7 +7,7 @@ namespace GalaxisProjectWebAPI.Model
 {
     public interface IFundRepository
     {
-        IEnumerable<Fund> GetAllFundsAsync();
+        IEnumerable<Fund> GetAllFunds();
 
         Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest);
 

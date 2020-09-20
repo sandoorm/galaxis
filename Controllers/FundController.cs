@@ -22,26 +22,7 @@ namespace GalaxisProjectWebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<DataModel.Fund>> GetAllFunds()
         {
-            return Ok(new List<DataModel.Fund>
-            {
-                new DataModel.Fund
-                {
-                    FundName = "Best Fund",
-                    InvestmentFundManagerName = "Sandor Maraczy",
-                    FloorLevel = 0.7
-                },
-                new DataModel.Fund
-                {
-                    FundName = "Galaxis Fund LTD",
-                    InvestmentFundManagerName = "Mate Brezovszki",
-                    FloorLevel = 0.6
-                }
-            });
-
-            //IEnumerable<Model.Fund> allDbFunds = this.fundRepository.GetAllFundsAsync();
-            //allDbFunds.Concat(staticFunds.Select(fund => new Model.Fund(fund)).ToList()).ToList();
-            //List<Model.Fund> list = allDbFunds.ToList();
-            //return Ok(allDbFunds);
+            return Ok(this.fundRepository.GetAllFunds());
         }
 
         [HttpGet("{id}")]
@@ -63,7 +44,7 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<int> CreateFund([FromBody] FundCreateRequest fundCreateRequest)
+        public async Task<int> CreateFundAsync([FromBody] FundCreateRequest fundCreateRequest)
         {
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
         }

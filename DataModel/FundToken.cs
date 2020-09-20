@@ -1,8 +1,9 @@
-﻿namespace GalaxisProjectWebAPI.DataModel
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace GalaxisProjectWebAPI.DataModel
 {
     public class FundToken
     {
-        public int Id { get; set; }
         public uint Timestamp { get; set; }
         public int Quantity { get; set; }
 

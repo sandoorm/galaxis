@@ -5,6 +5,7 @@
         public string FundName { get; set; }
         public string InvestmentFundManagerName { get; set; }
         public double FloorLevel { get; set; }
+        public int CompanyId { get; set; }
         public string Address { get; set; }
         public string CompanyName { get; set; }
     }
