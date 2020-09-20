@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.ApiModel;
@@ -21,6 +22,21 @@ namespace GalaxisProjectWebAPI.Model
         public IEnumerable<Company> GetAllCompanies()
         {
             return this.dbContext.Companies;
+        }
+
+        public IEnumerable<Company> GetAllCompaniesAndFunds(int companyId)
+        {
+            var companiesAndFunds = this.dbContext.Companies
+                .Join(this.dbContext.Funds,
+                company => company.Id,
+                fund => fund.CompanyId,
+                (company, fund) => new
+                {
+                    company.CompanyName,
+                    fund.FundName
+                }).ToList();
+
+            return null;
         }
 
         public Task<int> CreateCompanyAsync(CompanyCreateRequest companyCreateRequest)

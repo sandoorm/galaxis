@@ -26,6 +26,12 @@ namespace GalaxisProjectWebAPI.Controllers
             return companyRepository.GetAllCompanies();
         }
 
+        [HttpGet("{id}/Funds")]
+        public IEnumerable<Company> GetAllCompaniesWithFunds(int id)
+        {
+            return companyRepository.GetAllCompaniesAndFunds(id);
+        }
+
         [HttpPost]
         public Task<int> CreateCompanyAsync([FromBody] CompanyCreateRequest companyCreateRequest)
         {

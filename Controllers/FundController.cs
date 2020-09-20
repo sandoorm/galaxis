@@ -43,7 +43,7 @@ namespace GalaxisProjectWebAPI.Controllers
             return new FundPerformance();
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<int> CreateFundAsync([FromBody] FundCreateRequest fundCreateRequest)
         {
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
