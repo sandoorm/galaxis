@@ -27,7 +27,7 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<int> CreateCompanyAsync(CompanyCreateRequest companyCreateRequest)
+        public Task<int> CreateCompanyAsync([FromBody] CompanyCreateRequest companyCreateRequest)
         {
             return companyRepository.CreateCompanyAsync(companyCreateRequest);
         }
