@@ -62,7 +62,7 @@ namespace GalaxisProjectWebAPI.Model
             {
                 FundId = fundId,
                 Quantity = fundTokenCreateRequest.Quantity,
-                Timestamp = 1600516876,
+                Timestamp = 1600516886,
                 TokenId = tokenToAssign.Id
             });
 

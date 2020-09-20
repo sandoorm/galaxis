@@ -18,7 +18,7 @@ namespace GalaxisProjectWebAPI.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FundToken>().HasKey(f => new { f.FundId, f.TokenId });
+            modelBuilder.Entity<FundToken>().HasKey(f => new { f.FundId, f.TokenId, f.Timestamp });
         }
     }
 }
