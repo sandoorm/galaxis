@@ -42,13 +42,13 @@ namespace GalaxisProjectWebAPI.Model
                 (key, result) => new { TokenDescriptor = key, QuantitiesByTimestamp = result });
 
             var relevantFundTokenList = new TokenList();
-            foreach (var tokenGroup in groupedFundTokens)
+            foreach (var group in groupedFundTokens)
             {
-                var relevantFundToken = tokenGroup.QuantitiesByTimestamp.OrderByDescending(x => x.Timestamp).First();
+                var relevantFundToken = group.QuantitiesByTimestamp.OrderByDescending(x => x.Timestamp).First();
                 relevantFundTokenList.TokenInfos.Add(new TokenInfo
                 {
-                    TokenId = tokenGroup.TokenDescriptor.Id,
-                    TokenSymbol = tokenGroup.TokenDescriptor.Symbol,
+                    TokenId = group.TokenDescriptor.Id,
+                    TokenSymbol = group.TokenDescriptor.Symbol,
                     TimeStamp = relevantFundToken.Timestamp,
                     Quantity = relevantFundToken.Quantity
                 });
