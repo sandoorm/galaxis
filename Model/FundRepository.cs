@@ -39,8 +39,7 @@ namespace GalaxisProjectWebAPI.Model
             var groupedFundTokens = joinedFundTokens.GroupBy(
                 x => new { x.Token.Id, x.Token.Symbol },
                 x => new { x.Timestamp, x.Quantity },
-                (key, result) => new { TokenDescriptor = key, QuantitiesByTimestamp = result })
-                .ToList();
+                (key, result) => new { TokenDescriptor = key, QuantitiesByTimestamp = result });
 
             var relevantFundTokenList = new TokenList();
             foreach (var tokenGroup in groupedFundTokens)
