@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+using GalaxisProjectWebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
 using GalaxisProjectWebAPI.Model;
 
@@ -24,8 +25,11 @@ namespace GalaxisProject_WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // localhost connection with the provided PostgreSQL docker-compose.yml
+            // => "User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;"
             services.AddDbContext<GalaxisDbContext>(options =>
-                options.UseNpgsql("User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;"));
+                options.UseNpgsql(EnvVarHelper.GetGalaxisDbConnectionString()));
 
             services.AddScoped<IFundRepository, FundRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
