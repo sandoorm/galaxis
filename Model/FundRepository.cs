@@ -83,7 +83,7 @@ namespace GalaxisProjectWebAPI.Model
         public async Task<int> CreateFundToken(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
         {
             var requestedFund = await this.dbContext.Funds.FindAsync(fundId);
-            var tokenToAssign = await this.dbContext.Tokens.FindAsync(2);
+            var tokenToAssign = await this.dbContext.Tokens.FindAsync(1);
 
             // this.dbContext.Tokens
             //.FirstOrDefault(token => token.Name.Equals(fundTokenCreateRequest.TokenName));
@@ -92,7 +92,7 @@ namespace GalaxisProjectWebAPI.Model
             {
                 FundId = fundId,
                 Quantity = fundTokenCreateRequest.Quantity,
-                Timestamp = 1600516886,
+                Timestamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
                 TokenId = tokenToAssign.Id
             });
 
