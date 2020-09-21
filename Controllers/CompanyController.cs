@@ -20,19 +20,19 @@ namespace GalaxisProjectWebAPI.Controllers
             this.companyRepository = companyRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCompanies")]
         public IEnumerable<Company> GetAllCompanies()
         {
             return companyRepository.GetAllCompanies();
         }
 
-        [HttpGet("{id}/Funds")]
-        public IEnumerable<Company> GetAllCompaniesWithFunds(int id)
+        [HttpGet("GetAllCompaniesWithFunds")]
+        public IEnumerable<CompanyAndFunds> GetAllCompaniesWithFunds()
         {
-            return companyRepository.GetAllCompaniesAndFunds(id);
+            return companyRepository.GetAllCompaniesAndFunds();
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public Task<int> CreateCompanyAsync([FromBody] CompanyCreateRequest companyCreateRequest)
         {
             return companyRepository.CreateCompanyAsync(companyCreateRequest);

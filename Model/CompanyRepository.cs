@@ -24,19 +24,22 @@ namespace GalaxisProjectWebAPI.Model
             return this.dbContext.Companies;
         }
 
-        public IEnumerable<Company> GetAllCompaniesAndFunds(int companyId)
+        public IEnumerable<CompanyAndFunds> GetAllCompaniesAndFunds()
         {
-            var companiesAndFunds = this.dbContext.Companies
+            return this.dbContext.Companies
                 .Join(this.dbContext.Funds,
                 company => company.Id,
                 fund => fund.CompanyId,
                 (company, fund) => new
                 {
                     company.CompanyName,
-                    fund.FundName
-                }).ToList();
-
-            return null;
+                    fund
+                })
+                .Select(x => new CompanyAndFunds
+                {
+                    CompanyName = x.CompanyName,
+                    Fund = x.fund
+                });
         }
 
         public Task<int> CreateCompanyAsync(CompanyCreateRequest companyCreateRequest)

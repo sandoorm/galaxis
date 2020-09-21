@@ -10,7 +10,7 @@ namespace GalaxisProjectWebAPI.Model
     {
         IEnumerable<Company> GetAllCompanies();
 
-        IEnumerable<Company> GetAllCompaniesAndFunds(int companyId);
+        IEnumerable<CompanyAndFunds> GetAllCompaniesAndFunds();
 
         Task<int> CreateCompanyAsync(CompanyCreateRequest companyCreateRequest);
     }
