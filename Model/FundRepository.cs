@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.DataModel;
 using GalaxisProjectWebAPI.Infrastructure;
 
+using Token = GalaxisProjectWebAPI.Model.Token;
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
-using Microsoft.EntityFrameworkCore;
 
 namespace GalaxisProjectWebAPI.Model
 {
@@ -29,39 +29,34 @@ namespace GalaxisProjectWebAPI.Model
             return this.dbContext.Funds.Select(fund => new Fund(fund));
         }
 
-        public ActionResult<FundAndTokens> GetFundAndTokensAsync(int fundId)
+        public async Task<ActionResult<List<Token>>> GetFundAndTokensAsync(int fundId)
         {
-            var result = this.dbContext
+            var joinedFundTokens = await this.dbContext
                 .FundTokens
                 .Include(item => item.Token)
                 .Where(x => x.FundId == fundId)
+                .ToListAsync();
+
+            var groupedFundTokens = joinedFundTokens.GroupBy(
+                x => new { x.Token.Id, x.Token.Symbol },
+                x => new { x.Timestamp, x.Quantity },
+                (key, result) => new { TokenDescriptor = key, QuantitiesByTimestamp = result })
                 .ToList();
 
-            //var relevantFundTokens = this.dbContext.FundTokens
-            //    .Where(fundToken => fundToken.FundId == fundId);
+            var relevantFundTokens = new List<Token>();
+            foreach (var tokenGroup in groupedFundTokens)
+            {
+                var relevantFundToken = tokenGroup.QuantitiesByTimestamp.OrderByDescending(x => x.Timestamp).First();
+                relevantFundTokens.Add(new Token
+                {
+                    TokenId = tokenGroup.TokenDescriptor.Id,
+                    TokenSymbol = tokenGroup.TokenDescriptor.Symbol,
+                    TimeStamp = relevantFundToken.Timestamp,
+                    Quantity = relevantFundToken.Quantity
+                });
+            }
 
-            //var result = relevantFundTokens.Join(this.dbContext.Tokens,
-            //    fundToken => fundToken.TokenId,
-            //    token => token.Id,
-            //    (fundToken, token) => new
-            //    {
-            //        fundToken.TokenId,
-            //        fundToken.Timestamp,
-            //        token.Symbol
-            //    }).ToList();
-
-            //var result = this.dbContext.Funds
-            //    .Join(this.dbContext.Tokens,
-            //    fund => fund.Id,
-            //    token => token.,
-            //    (company, fund) => new
-            //    {
-            //        company.CompanyName,
-            //        fund.FundName
-            //    })
-            //    .ToList();
-
-            return null;
+            return relevantFundTokens;
         }
 
         public async Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest)
