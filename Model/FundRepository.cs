@@ -10,7 +10,6 @@ using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.DataModel;
 using GalaxisProjectWebAPI.Infrastructure;
 
-using Token = GalaxisProjectWebAPI.Model.Token;
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 
 namespace GalaxisProjectWebAPI.Model
@@ -29,7 +28,7 @@ namespace GalaxisProjectWebAPI.Model
             return this.dbContext.Funds.Select(fund => new Fund(fund));
         }
 
-        public async Task<ActionResult<List<Token>>> GetFundAndTokensAsync(int fundId)
+        public async Task<ActionResult<TokenList>> GetFundAndTokensAsync(int fundId)
         {
             var joinedFundTokens = await this.dbContext
                 .FundTokens
@@ -43,11 +42,11 @@ namespace GalaxisProjectWebAPI.Model
                 (key, result) => new { TokenDescriptor = key, QuantitiesByTimestamp = result })
                 .ToList();
 
-            var relevantFundTokens = new List<Token>();
+            var relevantFundTokenList = new TokenList();
             foreach (var tokenGroup in groupedFundTokens)
             {
                 var relevantFundToken = tokenGroup.QuantitiesByTimestamp.OrderByDescending(x => x.Timestamp).First();
-                relevantFundTokens.Add(new Token
+                relevantFundTokenList.TokenInfos.Add(new TokenInfo
                 {
                     TokenId = tokenGroup.TokenDescriptor.Id,
                     TokenSymbol = tokenGroup.TokenDescriptor.Symbol,
@@ -56,7 +55,7 @@ namespace GalaxisProjectWebAPI.Model
                 });
             }
 
-            return relevantFundTokens;
+            return relevantFundTokenList;
         }
 
         public async Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest)

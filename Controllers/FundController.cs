@@ -32,7 +32,7 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpGet("{id}/Tokens")]
-        public async Task<ActionResult<List<Token>>> GetCurrentFundTokensByFundId(int id)
+        public async Task<ActionResult<TokenList>> GetCurrentFundTokensById(int id)
         {
             return await this.fundRepository.GetFundAndTokensAsync(id);
         }

@@ -10,7 +10,7 @@ namespace GalaxisProjectWebAPI.Model
     {
         IEnumerable<Fund> GetAllFunds();
 
-        Task<ActionResult<List<Token>>> GetFundAndTokensAsync(int fundId);
+        Task<ActionResult<TokenList>> GetFundAndTokensAsync(int fundId);
 
         Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest);
 
