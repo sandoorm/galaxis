@@ -23,9 +23,14 @@ namespace GalaxisProjectWebAPI.Model
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<Fund> GetAllFunds()
+        public async Task<IEnumerable<DataModelFund>> GetAllFundsAsync()
         {
-            return this.dbContext.Funds.Select(fund => new Fund(fund));
+            return await this.dbContext.Funds.ToListAsync();
+        }
+
+        public async Task<ActionResult<DataModelFund>> GetFundByIdAsync(int fundId)
+        {
+            return await this.dbContext.Funds.FindAsync(fundId);
         }
 
         public async Task<ActionResult<TokenList>> GetFundAndTokensAsync(int fundId)
@@ -79,7 +84,7 @@ namespace GalaxisProjectWebAPI.Model
             return await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> CreateFundToken(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
+        public async Task<int> CreateFundTokenAsync(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
         {
             var requestedFund = await this.dbContext.Funds.FindAsync(fundId);
             var tokenToAssign = await this.dbContext.Tokens.FindAsync(1);

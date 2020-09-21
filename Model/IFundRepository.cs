@@ -1,19 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.ApiModel;
-using Microsoft.AspNetCore.Mvc;
+
+using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 
 namespace GalaxisProjectWebAPI.Model
 {
     public interface IFundRepository
     {
-        IEnumerable<Fund> GetAllFunds();
+        Task<IEnumerable<DataModelFund>> GetAllFundsAsync();
+
+        Task<ActionResult<DataModelFund>> GetFundByIdAsync(int fundId);
 
         Task<ActionResult<TokenList>> GetFundAndTokensAsync(int fundId);
 
         Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest);
 
-        Task<int> CreateFundToken(int id, FundTokenCreateRequest fundTokenCreateRequest);
+        Task<int> CreateFundTokenAsync(int id, FundTokenCreateRequest fundTokenCreateRequest);
     }
 }

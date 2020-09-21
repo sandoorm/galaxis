@@ -1,26 +1,15 @@
-﻿using GalaxisProjectWebAPI.DataModel;
-
-namespace GalaxisProjectWebAPI.Model
+﻿namespace GalaxisProjectWebAPI.Model
 {
     public class Fund
     {
-        private readonly DataModel.Fund fund;
+        public int ID { get; set; }
 
-        public Fund(DataModel.Fund fund)
-        {
-            this.fund = fund;
-        }
+        public int CompanyId { get; set; }
 
-        public int ID => fund.Id;
+        public string FundName { get; set; }
 
-        public int CompanyId => fund.CompanyId;
+        public string InvestmentFundManagerName { get; set; }
 
-        public string FundName => fund.FundName;
-
-        public string InvestmentFundManagerName => fund.InvestmentFundManagerName;
-
-        public double FloorLevel => fund.FloorLevel;
-
-        public Company Company => fund.Company;
+        public double FloorLevel { get; set; }
     }
 }

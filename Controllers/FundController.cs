@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
 using GalaxisProjectWebAPI.Model;
-using System.Threading.Tasks;
 using GalaxisProjectWebAPI.ApiModel;
+
+using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -20,15 +22,15 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpGet("GetAllFunds")]
-        public ActionResult<IEnumerable<DataModel.Fund>> GetAllFunds()
+        public async Task<ActionResult<IEnumerable<DataModelFund>>> GetAllFundsAsync()
         {
-            return Ok(this.fundRepository.GetAllFunds());
+            return Ok(await this.fundRepository.GetAllFundsAsync());
         }
 
         [HttpGet("{id}/GetFund")]
-        public ActionResult<int> GetFundById(int id) 
+        public async Task<ActionResult<DataModelFund>> GetFundById(int id) 
         {
-            return id;
+            return await this.fundRepository.GetFundByIdAsync(id);
         }
 
         [HttpGet("{id}/Tokens/GetCurrentTokens")]
@@ -49,10 +51,10 @@ namespace GalaxisProjectWebAPI.Controllers
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
         }
 
-        [HttpPost("{id}/Tokens/Create")]
+        [HttpPost("{id}/Tokens/AddToken")]
         public async Task<int> AddTokenToFund(int id, [FromBody] FundTokenCreateRequest fundTokenCreateRequest)
         {
-            return await this.fundRepository.CreateFundToken(id, fundTokenCreateRequest);
+            return await this.fundRepository.CreateFundTokenAsync(id, fundTokenCreateRequest);
         }
 
         [HttpPut("{id}")]
