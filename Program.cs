@@ -1,16 +1,16 @@
-﻿using System;
-
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using System;
+using System.Diagnostics;
+
 using GalaxisProject_WebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 
 namespace Galaxis_WebAPI
 {
@@ -29,7 +29,7 @@ namespace Galaxis_WebAPI
                 .UseUrls(url)
                 .Build();
 
-            MigrateDbContext<ApplicationDbContext>(host);
+            MigrateDbContext<GalaxisDbContext>(host);
 
             host.Run();
         }

@@ -24,7 +24,7 @@ namespace GalaxisProject_WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<GalaxisDbContext>(options =>
                 options.UseNpgsql("User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;"));
 
             services.AddScoped<IFundRepository, FundRepository>();

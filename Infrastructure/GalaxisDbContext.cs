@@ -4,9 +4,9 @@ using GalaxisProjectWebAPI.DataModel;
 
 namespace GalaxisProjectWebAPI.Infrastructure
 {
-    public class ApplicationDbContext : DbContext
+    public class GalaxisDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> optionsBuilder)
+        public GalaxisDbContext(DbContextOptions<GalaxisDbContext> optionsBuilder)
             : base(optionsBuilder)
         {
         }

@@ -16,26 +16,26 @@ namespace GalaxisProjectWebAPI.Model
 {
     public class FundRepository : IFundRepository
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly GalaxisDbContext galaxisContext;
 
-        public FundRepository(ApplicationDbContext dbContext)
+        public FundRepository(GalaxisDbContext galaxisContext)
         {
-            this.dbContext = dbContext;
+            this.galaxisContext = galaxisContext;
         }
 
         public async Task<IEnumerable<DataModelFund>> GetAllFundsAsync()
         {
-            return await this.dbContext.Funds.ToListAsync();
+            return await this.galaxisContext.Funds.ToListAsync();
         }
 
         public async Task<ActionResult<DataModelFund>> GetFundByIdAsync(int fundId)
         {
-            return await this.dbContext.Funds.FindAsync(fundId);
+            return await this.galaxisContext.Funds.FindAsync(fundId);
         }
 
         public async Task<ActionResult<TokenList>> GetFundAndTokensAsync(int fundId)
         {
-            var joinedFundTokens = await this.dbContext
+            var joinedFundTokens = await this.galaxisContext
                 .FundTokens
                 .Include(item => item.Token)
                 .Where(x => x.FundId == fundId)
@@ -66,7 +66,7 @@ namespace GalaxisProjectWebAPI.Model
         {
             var company = fundCreateRequest.CompanyId == 0
                 ? CreateCompany(fundCreateRequest)
-                : await this.dbContext.Companies.FindAsync(fundCreateRequest.CompanyId);
+                : await this.galaxisContext.Companies.FindAsync(fundCreateRequest.CompanyId);
 
             _ = company ?? throw new ArgumentException();
 
@@ -80,14 +80,14 @@ namespace GalaxisProjectWebAPI.Model
 
             AssignFundToCompany(company, fund);
 
-            this.dbContext.Funds.Add(fund);
-            return await this.dbContext.SaveChangesAsync();
+            this.galaxisContext.Funds.Add(fund);
+            return await this.galaxisContext.SaveChangesAsync();
         }
 
         public async Task<int> CreateFundTokenAsync(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
         {
-            var requestedFund = await this.dbContext.Funds.FindAsync(fundId);
-            var tokenToAssign = await this.dbContext.Tokens.FindAsync(1);
+            var requestedFund = await this.galaxisContext.Funds.FindAsync(fundId);
+            var tokenToAssign = await this.galaxisContext.Tokens.FindAsync(1);
 
             // this.dbContext.Tokens
             //.FirstOrDefault(token => token.Name.Equals(fundTokenCreateRequest.TokenName));
@@ -100,7 +100,7 @@ namespace GalaxisProjectWebAPI.Model
                 TokenId = tokenToAssign.Id
             });
 
-            await this.dbContext.SaveChangesAsync();
+            await this.galaxisContext.SaveChangesAsync();
             return 0;
         }
 

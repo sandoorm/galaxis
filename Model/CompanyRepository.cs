@@ -12,22 +12,22 @@ namespace GalaxisProjectWebAPI.Model
 {
     public class CompanyRepository : ICompanyRepository
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly GalaxisDbContext galaxisContext;
 
-        public CompanyRepository(ApplicationDbContext dbContext)
+        public CompanyRepository(GalaxisDbContext galaxisContext)
         {
-            this.dbContext = dbContext;
+            this.galaxisContext = galaxisContext;
         }
 
         public IEnumerable<Company> GetAllCompanies()
         {
-            return this.dbContext.Companies;
+            return this.galaxisContext.Companies;
         }
 
         public IEnumerable<CompanyAndFunds> GetAllCompaniesAndFunds()
         {
-            return this.dbContext.Companies
-                .Join(this.dbContext.Funds,
+            return this.galaxisContext.Companies
+                .Join(this.galaxisContext.Funds,
                 company => company.Id,
                 fund => fund.CompanyId,
                 (company, fund) => new
@@ -51,8 +51,8 @@ namespace GalaxisProjectWebAPI.Model
                 Funds = new List<DataModelFund>()
             };
 
-            this.dbContext.Companies.Add(company);
-            return this.dbContext.SaveChangesAsync();
+            this.galaxisContext.Companies.Add(company);
+            return this.galaxisContext.SaveChangesAsync();
         }
     }
 }   

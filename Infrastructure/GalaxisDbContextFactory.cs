@@ -3,19 +3,19 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace GalaxisProjectWebAPI.Infrastructure
 {
-    public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    public class GalaxisDbContextFactory : IDesignTimeDbContextFactory<GalaxisDbContext>
     {
-        public DbContextFactory()
+        public GalaxisDbContextFactory()
         {
         }
 
-        public ApplicationDbContext CreateDbContext(string[] args)
+        public GalaxisDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<GalaxisDbContext>();
             string connectionString = "User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;";
             optionsBuilder.UseNpgsql(connectionString);
 
-            return new ApplicationDbContext(optionsBuilder.Options);
+            return new GalaxisDbContext(optionsBuilder.Options);
         }
     }
 }
