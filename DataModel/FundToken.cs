@@ -8,6 +8,9 @@ namespace GalaxisProjectWebAPI.DataModel
         public int Quantity { get; set; }
 
         public int FundId { get; set; }
+        public Fund Fund { get; set; }
+
         public int TokenId { get; set; }
+        public Token Token { get; set; }
     }
 }

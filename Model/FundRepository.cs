@@ -11,6 +11,7 @@ using GalaxisProjectWebAPI.DataModel;
 using GalaxisProjectWebAPI.Infrastructure;
 
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalaxisProjectWebAPI.Model
 {
@@ -30,18 +31,24 @@ namespace GalaxisProjectWebAPI.Model
 
         public ActionResult<FundAndTokens> GetFundAndTokensAsync(int fundId)
         {
-            var relevantFundTokens = this.dbContext.FundTokens
-                .Where(fundToken => fundToken.FundId == fundId);
+            var result = this.dbContext
+                .FundTokens
+                .Include(item => item.Token)
+                .Where(x => x.FundId == fundId)
+                .ToList();
 
-            var result = relevantFundTokens.Join(this.dbContext.Tokens,
-                fundToken => fundToken.TokenId,
-                token => token.Id,
-                (fundToken, token) => new
-                {
-                    fundToken.TokenId,
-                    fundToken.Timestamp,
-                    token.Symbol
-                }).ToList();
+            //var relevantFundTokens = this.dbContext.FundTokens
+            //    .Where(fundToken => fundToken.FundId == fundId);
+
+            //var result = relevantFundTokens.Join(this.dbContext.Tokens,
+            //    fundToken => fundToken.TokenId,
+            //    token => token.Id,
+            //    (fundToken, token) => new
+            //    {
+            //        fundToken.TokenId,
+            //        fundToken.Timestamp,
+            //        token.Symbol
+            //    }).ToList();
 
             //var result = this.dbContext.Funds
             //    .Join(this.dbContext.Tokens,
