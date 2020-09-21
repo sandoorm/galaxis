@@ -19,25 +19,25 @@ namespace GalaxisProjectWebAPI.Controllers
             this.fundRepository = fundRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllFunds")]
         public ActionResult<IEnumerable<DataModel.Fund>> GetAllFunds()
         {
             return Ok(this.fundRepository.GetAllFunds());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}/GetFund")]
         public ActionResult<int> GetFundById(int id) 
         {
             return id;
         }
 
-        [HttpGet("{id}/Tokens")]
+        [HttpGet("{id}/Tokens/GetCurrentTokens")]
         public async Task<ActionResult<TokenList>> GetCurrentFundTokensById(int id)
         {
             return await this.fundRepository.GetFundAndTokensAsync(id);
         }
 
-        [HttpGet("{id}/Performance")]
+        [HttpGet("{id}/Performance/GetCurrentFundPerformance")]
         public ActionResult<FundPerformance> GetCurrentFundPerformance(int id)
         {
             return new FundPerformance();
@@ -49,7 +49,7 @@ namespace GalaxisProjectWebAPI.Controllers
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
         }
 
-        [HttpPost("{id}/Tokens")]
+        [HttpPost("{id}/Tokens/Create")]
         public async Task<int> AddTokenToFund(int id, [FromBody] FundTokenCreateRequest fundTokenCreateRequest)
         {
             return await this.fundRepository.CreateFundToken(id, fundTokenCreateRequest);
