@@ -11,6 +11,7 @@ using System.Diagnostics;
 
 using GalaxisProject_WebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
+using GalaxisProjectWebAPI;
 
 namespace Galaxis_WebAPI
 {
@@ -29,6 +30,7 @@ namespace Galaxis_WebAPI
                 .UseUrls(url)
                 .Build();
 
+            Console.WriteLine(EnvVarHelper.GetGalaxisDbConnectionString());
             MigrateDbContext<GalaxisDbContext>(host);
 
             host.Run();
