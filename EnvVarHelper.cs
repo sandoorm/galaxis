@@ -12,6 +12,6 @@ namespace GalaxisProjectWebAPI
         //    + ";";
 
         public static string GetGalaxisDbConnectionString() =>
-            "User Id=database-user;Password=database-password;Server=172.30.243.12;Port=5432;Database=database-name;";
+            "User Id=galaxis-user;Password=galaxis-pw;Server=172.30.77.30;Port=5432;Database=sampledb1-galaxis;";
     }
 }
