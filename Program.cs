@@ -28,9 +28,11 @@ namespace Galaxis_WebAPI
                 .UseStartup<Startup>()
                 .UseUrls(url)
                 .Build();
-            
-            // MigrateDbContext<GalaxisDbContext>(host);
 
+            Console.WriteLine("fgretghzthzthzthtzhztht!!!!");
+
+            MigrateDbContext<GalaxisDbContext>(host);
+            
             host.Run();
         }
 
@@ -48,8 +50,7 @@ namespace Galaxis_WebAPI
                 }
                 catch (Exception ex)
                 {
-                    Debugger.Break();
-                    throw;
+                    Console.WriteLine("!!!!!" + ex.Message);
                 }
             }
         }
