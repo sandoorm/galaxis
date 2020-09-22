@@ -28,7 +28,6 @@ namespace Galaxis_WebAPI
                 .UseStartup<Startup>()
                 .UseUrls(url)
                 .Build();
-
             
             MigrateDbContext<GalaxisDbContext>(host);
 
