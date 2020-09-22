@@ -29,8 +29,6 @@ namespace Galaxis_WebAPI
                 .UseUrls(url)
                 .Build();
 
-            Console.WriteLine("fgretghzthzthzthtzhztht!!!!");
-
             MigrateDbContext<GalaxisDbContext>(host);
             
             host.Run();
@@ -39,19 +37,16 @@ namespace Galaxis_WebAPI
         private static void MigrateDbContext<TContext>(IWebHost host)
             where TContext : DbContext
         {
+            if (host == null)
+            {
+                throw new InvalidCastException();
+            }
+
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
-                try
-                {
-                    var dbContext = services.GetRequiredService<TContext>();
-                    dbContext.Database.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("!!!!!" + ex.Message);
-                }
+                var dbContext = services.GetRequiredService<TContext>();
+                dbContext.Database.Migrate();
             }
         }
     }
