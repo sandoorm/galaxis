@@ -30,7 +30,7 @@ namespace Galaxis_WebAPI
                 .UseUrls(url)
                 .Build();
 
-            Console.WriteLine(EnvVarHelper.GetGalaxisDbConnectionString());
+            Console.WriteLine("!!!!!!!!!!!" + EnvVarHelper.GetGalaxisDbConnectionString());
             MigrateDbContext<GalaxisDbContext>(host);
 
             host.Run();
