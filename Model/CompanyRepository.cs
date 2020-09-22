@@ -26,6 +26,7 @@ namespace GalaxisProjectWebAPI.Model
 
         public IEnumerable<CompanyAndFunds> GetAllCompaniesAndFunds()
         {
+            // no need for Select!!
             return this.galaxisContext.Companies
                 .Join(this.galaxisContext.Funds,
                 company => company.Id,
