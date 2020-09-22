@@ -11,7 +11,6 @@ using System.Diagnostics;
 
 using GalaxisProject_WebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
-using GalaxisProjectWebAPI;
 
 namespace Galaxis_WebAPI
 {
@@ -25,15 +24,17 @@ namespace Galaxis_WebAPI
 
             var url = config["ASPNETCORE_URLS"] ?? "http://*:8080";
 
-            var host = WebHost.CreateDefaultBuilder(args)
+            //var host =
+                WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseUrls(url)
-                .Build();
+                .Build()
+                .Run();
 
-            Console.WriteLine("!!!!!!!!!!!" + EnvVarHelper.GetGalaxisDbConnectionString());
-            MigrateDbContext<GalaxisDbContext>(host);
+            
+            //MigrateDbContext<GalaxisDbContext>(host);
 
-            host.Run();
+            //host.Run();
         }
 
         private static void MigrateDbContext<TContext>(IWebHost host)
