@@ -29,7 +29,7 @@ namespace Galaxis_WebAPI
                 .UseUrls(url)
                 .Build();
             
-            MigrateDbContext<GalaxisDbContext>(host);
+            // MigrateDbContext<GalaxisDbContext>(host);
 
             host.Run();
         }
