@@ -6,9 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using System;
-using System.Diagnostics;
-
 using GalaxisProject_WebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
 
@@ -37,14 +34,10 @@ namespace Galaxis_WebAPI
         private static void MigrateDbContext<TContext>(IWebHost host)
             where TContext : DbContext
         {
-            if (host == null)
-            {
-                throw new InvalidCastException();
-            }
-
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+
                 var dbContext = services.GetRequiredService<TContext>();
                 dbContext.Database.Migrate();
             }
