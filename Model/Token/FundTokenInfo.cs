@@ -1,6 +1,6 @@
-﻿namespace GalaxisProjectWebAPI.Model
+﻿namespace GalaxisProjectWebAPI.Model.Token
 {
-    public class TokenInfo
+    public class FundTokenInfo
     {
         public int TokenId { get; set; }
         public string TokenSymbol { get; set; }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.ApiModel;
+using GalaxisProjectWebAPI.Model.Token;
 
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 
@@ -15,7 +16,7 @@ namespace GalaxisProjectWebAPI.Model
 
         Task<ActionResult<DataModelFund>> GetFundByIdAsync(int fundId);
 
-        Task<ActionResult<TokenList>> GetFundAndTokensAsync(int fundId);
+        Task<ActionResult<TokenList<FundTokenInfo>>> GetFundAndTokensAsync(int fundId);
 
         Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest);
 

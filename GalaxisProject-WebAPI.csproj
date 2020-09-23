@@ -16,6 +16,7 @@
     <Folder Include="DataModel\" />
     <Folder Include="Migrations\" />
     <Folder Include="ApiModel\" />
+    <Folder Include="Model\Token\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App">

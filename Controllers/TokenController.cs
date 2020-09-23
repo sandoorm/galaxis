@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
+using System.Linq;
+using System.Threading.Tasks;
+
+using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.Model;
+using GalaxisProjectWebAPI.Model.Token;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -9,79 +13,43 @@ namespace GalaxisProjectWebAPI.Controllers
     [ApiController]
     public class TokenController
     {
-        private readonly IFundRepository fundRepository;
+        private readonly ITokenRepository tokenRepository;
 
-        public TokenController(IFundRepository fundRepository)
+        public TokenController(ITokenRepository tokenRepository)
         {
-            this.fundRepository = fundRepository;
+            this.tokenRepository = tokenRepository;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<DataModel.Token>> GetAllTokens()
+        [HttpGet("GetAllTokens")]
+        public async Task<ActionResult<TokenList<TokenInfo>>> GetAllTokens()
         {
-            return new List<DataModel.Token>
-            {
-                new DataModel.Token
-                {
-                    Name = "Ethereum",
-                    Symbol = "ETH",
-                    Decimals = 18
-                },
-                new DataModel.Token
-                {
-                    Name = "Bitcoin",
-                    Symbol = "BTC",
-                    Decimals = 18
-                }
-            };
-
-            //IEnumerable<Model.Fund> allDbFunds = this.fundRepository.GetAllFundsAsync();
-            //allDbFunds.Concat(staticFunds.Select(fund => new Model.Fund(fund)).ToList()).ToList();
-            //List<Model.Fund> list = allDbFunds.ToList();
-            //return Ok(allDbFunds);
+            return await this.tokenRepository.GetAllTokensAsync();
         }
 
-        [HttpGet("{symbol}")]
-        public ActionResult<DataModel.Token> GetTokenBySymbol(string symbol)
+        [HttpGet("{symbol}/GetToken")]
+        public async Task<ActionResult<TokenInfo>> GetTokenBySymbol(string symbol)
         {
-            if (symbol == "ETH")
+            var relevantTokens = await this.tokenRepository
+                .GetAllTokensAsync();
+
+            return relevantTokens
+                .TokenInfos
+                .FirstOrDefault(tokenInfo => tokenInfo.Symbol == symbol);
+        }
+
+        [HttpPost("Add")]
+        public async Task AddToken([FromBody] TokenCreationRequest tokenCreationRequest)
+        {
+            var relevantTokens = await this.tokenRepository.GetAllTokensAsync();
+
+            bool alreadyCreated = relevantTokens
+                .TokenInfos
+                .Any(tokenInfo => tokenInfo.Symbol == tokenCreationRequest.Symbol);
+
+            if (!alreadyCreated)
             {
-                return new DataModel.Token
-                {
-                    Name = "Ethereum",
-                    Symbol = "ETH",
-                    Decimals = 18
-                };
+                await this.tokenRepository.AddTokenAsync(tokenCreationRequest);
             }
-            else if (symbol == "BTC")
-            {
-                return new DataModel.Token
-                {
-                    Name = "Bitcoin",
-                    Symbol = "BTC",
-                    Decimals = 18
-                };
-            }
-
-            return null;
-        }
-
-        [HttpPost]
-        public int AddToken()
-        {
-            return 1;
-        }
-
-        [HttpPut("{id}")]
-        public int ModifyToken(int id)
-        {
-            return 3;
-        }
-
-        [HttpDelete("{id}")]
-        public int DeleteFund(int id)
-        {
-            return 3;
         }
     }
 }

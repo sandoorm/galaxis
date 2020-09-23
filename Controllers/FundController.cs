@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using GalaxisProjectWebAPI.Model;
 using GalaxisProjectWebAPI.ApiModel;
+using GalaxisProjectWebAPI.Model;
 
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
+using GalaxisProjectWebAPI.Model.Token;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -34,7 +35,7 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpGet("{id}/Tokens/GetCurrentTokens")]
-        public async Task<ActionResult<TokenList>> GetCurrentFundTokensById(int id)
+        public async Task<ActionResult<TokenList<FundTokenInfo>>> GetCurrentFundTokensById(int id)
         {
             return await this.fundRepository.GetFundAndTokensAsync(id);
         }
@@ -55,18 +56,6 @@ namespace GalaxisProjectWebAPI.Controllers
         public async Task<int> AddTokenToFund(int id, [FromBody] FundTokenCreateRequest fundTokenCreateRequest)
         {
             return await this.fundRepository.CreateFundTokenAsync(id, fundTokenCreateRequest);
-        }
-
-        [HttpPut("{id}")]
-        public int ModifyFund()
-        {
-            return 3;
-        }
-
-        [HttpDelete("{id}")]
-        public int DeleteFund()
-        {
-            return 3;
         }
     }
 }

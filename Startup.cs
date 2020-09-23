@@ -33,6 +33,7 @@ namespace GalaxisProject_WebAPI
 
             services.AddScoped<IFundRepository, FundRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
 
             services.AddSwaggerGen(c =>
             {
