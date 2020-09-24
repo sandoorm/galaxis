@@ -2,7 +2,8 @@
 
 using System.Collections.Generic;
 
-using GalaxisProjectWebAPI.DataModel;
+using GalaxisProjectWebAPI.ApiModel;
+using GalaxisProjectWebAPI.Model;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -10,22 +11,29 @@ namespace GalaxisProjectWebAPI.Controllers
     [ApiController]
     public class PriceHistoryController
     {
-        [HttpGet("{currencyPair}")]
-        public ActionResult<IEnumerable<TokenPriceHistory>> GetHistoricPriceData(string currencyPair)
+        private readonly IPriceHistoryRepository priceHistoryRepository;
+
+        public PriceHistoryController(IPriceHistoryRepository priceHistoryRepository)
         {
-            var result = new List<TokenPriceHistory>();
+            this.priceHistoryRepository = priceHistoryRepository;
+        }
+
+        [HttpGet("{currencyPair}")]
+        public ActionResult<IEnumerable<PriceHistoricData>> GetHistoricPriceData(string currencyPair)
+        {
+            var result = new List<PriceHistoricData>();
             if (currencyPair == "eth-usd")
             {
-                result.Add(new TokenPriceHistory { Id = 1, Timestamp = 1600194556, USD_Price = 356, EUR_Price = 310 }) ;
-                result.Add(new TokenPriceHistory { Id = 2, Timestamp = 1600194546, USD_Price = 356.3, EUR_Price = 310.3 });
-                result.Add(new TokenPriceHistory { Id = 3, Timestamp = 1600194536, USD_Price = 356.8, EUR_Price = 310.8 });
+                result.Add(new PriceHistoricData { Timestamp = 1600194556, BaseCurrency = "ETH", QuoteCurrency = "USD", Price = 330 });
+                result.Add(new PriceHistoricData { Timestamp = 1600194576, BaseCurrency = "ETH", QuoteCurrency = "USD", Price = 332.6 });
+                result.Add(new PriceHistoricData { Timestamp = 1600194596, BaseCurrency = "ETH", QuoteCurrency = "USD", Price = 334.67 });
             }
 
             return result;
         }
 
         //[HttpPost]
-        //public ActionResult PushHistoricPriceData()
+        //public ActionResult PushHistoricPriceData(PriceHistoricDataCreateRequest priceHistoricDataCreateRequest)
         //{
 
         //}
