@@ -31,15 +31,10 @@ namespace GalaxisProjectWebAPI.Model
                 .Join(this.galaxisContext.Funds,
                 company => company.Id,
                 fund => fund.CompanyId,
-                (company, fund) => new
+                (company, fund) => new CompanyAndFunds
                 {
-                    company.CompanyName,
-                    fund
-                })
-                .Select(x => new CompanyAndFunds
-                {
-                    CompanyName = x.CompanyName,
-                    Fund = x.fund
+                    CompanyName = company.CompanyName,
+                    Fund = fund
                 });
         }
 

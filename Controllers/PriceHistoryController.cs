@@ -23,5 +23,11 @@ namespace GalaxisProjectWebAPI.Controllers
 
             return result;
         }
+
+        //[HttpPost]
+        //public ActionResult PushHistoricPriceData()
+        //{
+
+        //}
     }
 }
