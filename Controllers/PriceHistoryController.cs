@@ -26,10 +26,11 @@ namespace GalaxisProjectWebAPI.Controllers
                 .GetAllHistoricPriceDataAsync(baseTokenSymbol);
         }
 
-        //[HttpPost]
-        //public ActionResult PushHistoricPriceData(PriceHistoricDataCreateRequest priceHistoricDataCreateRequest)
-        //{
-        //    this.
-        //}
+        [HttpPost("PushHistoricPriceDatas")]
+        public async Task PushHistoricPriceDatas(PriceHistoricDataCreateRequest priceHistoricDataCreateRequest)
+        {
+            await this.priceHistoryRepository
+                .AddTokenPriceHistoryDatasAsync(priceHistoricDataCreateRequest.priceHistoricDatas);
+        }
     }
 }
