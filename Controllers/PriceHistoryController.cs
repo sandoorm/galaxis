@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.Model;
@@ -18,24 +19,17 @@ namespace GalaxisProjectWebAPI.Controllers
             this.priceHistoryRepository = priceHistoryRepository;
         }
 
-        [HttpGet("{currencyPair}")]
-        public ActionResult<IEnumerable<PriceHistoricData>> GetHistoricPriceData(string currencyPair)
+        [HttpGet("GetHistoricPriceData")]
+        public async Task<ActionResult<IEnumerable<PriceHistoricData>>> GetHistoricPriceData(string baseTokenSymbol)
         {
-            var result = new List<PriceHistoricData>();
-            if (currencyPair == "eth-usd")
-            {
-                result.Add(new PriceHistoricData { Timestamp = 1600194556, BaseCurrency = "ETH", QuoteCurrency = "USD", Price = 330 });
-                result.Add(new PriceHistoricData { Timestamp = 1600194576, BaseCurrency = "ETH", QuoteCurrency = "USD", Price = 332.6 });
-                result.Add(new PriceHistoricData { Timestamp = 1600194596, BaseCurrency = "ETH", QuoteCurrency = "USD", Price = 334.67 });
-            }
-
-            return result;
+            return await this.priceHistoryRepository
+                .GetAllHistoricPriceDataAsync(baseTokenSymbol);
         }
 
         //[HttpPost]
         //public ActionResult PushHistoricPriceData(PriceHistoricDataCreateRequest priceHistoricDataCreateRequest)
         //{
-
+        //    this.
         //}
     }
 }
