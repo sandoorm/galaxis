@@ -29,7 +29,8 @@ namespace GalaxisProject_WebAPI
                 options.AddPolicy("AllowOrigin",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:8080")
+                    builder.WithOrigins("http://localhost:8080",
+                                        "http://galaxisdeploypatched-galaxis.e4ff.pro-eu-west-1.openshiftapps.com")
                                         .AllowAnyHeader()
                                         .AllowAnyMethod()
                                         .AllowCredentials();
