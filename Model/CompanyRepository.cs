@@ -43,7 +43,15 @@ namespace GalaxisProjectWebAPI.Model
             var company = new Company
             {
                 CompanyName = companyCreateRequest.CompanyName,
-                Address = companyCreateRequest.Address,
+                CompanyAddress = companyCreateRequest.CompanyAddress,
+                RegistrationNumber = companyCreateRequest.RegistrationNumber,
+                vatNumber = companyCreateRequest.vatNumber,
+                OfficialEmailAddress = companyCreateRequest.OfficialEmailAddress,
+                ContactPersonName =  companyCreateRequest.ContactPersonName,
+                Position = companyCreateRequest.Position,
+                ContactPersonPhoneNumber = companyCreateRequest.ContactPersonPhoneNumber,
+                ContactPersonEmail = companyCreateRequest.ContactPersonEmail,
+
                 Funds = new List<DataModelFund>()
             };
 

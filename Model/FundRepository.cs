@@ -65,24 +65,34 @@ namespace GalaxisProjectWebAPI.Model
 
         public async Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest)
         {
-            var company = fundCreateRequest.CompanyId == 0
-                ? CreateCompany(fundCreateRequest)
-                : await this.galaxisContext.Companies.FindAsync(fundCreateRequest.CompanyId);
+            Company company = null;
+            if (fundCreateRequest.CompanyId != 0)
+            {
+                company = await this.galaxisContext.Companies.FindAsync(fundCreateRequest.CompanyId);
+            }
 
-            _ = company ?? throw new ArgumentException();
+            int result = 0;
+            if (company != null)
+            {
+                var fund = CreateDataModelFund(fundCreateRequest, company);
+                AssignFundToCompany(company, fund);
 
-            DataModelFund fund = new DataModelFund
+                this.galaxisContext.Funds.Add(fund);
+                result = await this.galaxisContext.SaveChangesAsync();
+            }
+
+            return result;
+        }
+
+        private static DataModelFund CreateDataModelFund(FundCreateRequest fundCreateRequest, Company company)
+        {
+            return new DataModelFund
             {
                 FundName = fundCreateRequest.FundName,
                 InvestmentFundManagerName = fundCreateRequest.InvestmentFundManagerName,
                 FloorLevel = fundCreateRequest.FloorLevel,
                 Company = company
             };
-
-            AssignFundToCompany(company, fund);
-
-            this.galaxisContext.Funds.Add(fund);
-            return await this.galaxisContext.SaveChangesAsync();
         }
 
         public async Task<int> CreateFundTokenAsync(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
@@ -115,15 +125,6 @@ namespace GalaxisProjectWebAPI.Model
             {
                 company.Funds.Add(fund);
             }
-        }
-
-        private Company CreateCompany(FundCreateRequest fundCreateRequest)
-        {
-            return new Company
-            {
-                CompanyName = fundCreateRequest.CompanyName,
-                Address = fundCreateRequest.Address
-            };
         }
     }
 }
