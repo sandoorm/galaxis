@@ -14,7 +14,7 @@ namespace GalaxisProjectWebAPI.DataModel
         public string Name { get; set; }
         public int Decimals { get; set; }
 
-        public TokenPriceHistoricData TokenPriceHistoricData { get; set; }
+        public List<TokenPriceHistoricData> TokenPriceHistoricDatas { get; set; }
         public List<FundToken> FundTokens { get; set; }
     }
 }
