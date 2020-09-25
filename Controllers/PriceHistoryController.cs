@@ -27,9 +27,9 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpPost("PushHistoricPriceDatas")]
-        public async Task PushHistoricPriceDatas(PriceHistoricDataCreateRequest priceHistoricDataCreateRequest)
+        public void PushHistoricPriceDatas(PriceHistoricDataCreateRequest priceHistoricDataCreateRequest)
         {
-            await this.priceHistoryRepository
+            this.priceHistoryRepository
                 .AddTokenPriceHistoryDatasAsync(priceHistoricDataCreateRequest.priceHistoricDatas);
         }
     }

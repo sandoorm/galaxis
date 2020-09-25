@@ -22,24 +22,24 @@ namespace GalaxisProjectWebAPI.Model
 
         public async Task<List<PriceHistoricData>> GetAllHistoricPriceDataAsync(string baseTokenSymbol)
         {
-            DataModelToken foundToken = await GetRelevantToken(baseTokenSymbol);
+            DataModelToken foundToken = GetRelevantToken(baseTokenSymbol);
 
             return foundToken != null
                 ? GetTokenHistory(baseTokenSymbol, foundToken.Id)
                 : new List<PriceHistoricData>();
         }
 
-        private async Task<DataModelToken> GetRelevantToken(string baseTokenSymbol)
+        private DataModelToken GetRelevantToken(string baseTokenSymbol)
         {
-            return await this.galaxisContext
+            return this.galaxisContext
                 .Tokens
-                .FirstOrDefaultAsync(token => token.Symbol == baseTokenSymbol);
+                .FirstOrDefault(token => token.Symbol == baseTokenSymbol);
         }
 
         private List<PriceHistoricData> GetTokenHistory(string baseTokenSymbol, int tokenId)
         {
             return this.galaxisContext
-                .TokenPriceHistory
+                .TokenPriceHistoricDatas
                 .Where(history => history.TokenId == tokenId)
                 .Select(historicData => new PriceHistoricData
                 {
@@ -51,25 +51,25 @@ namespace GalaxisProjectWebAPI.Model
                 .ToList();
         }
 
-        public async Task AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoricDatas)
+        public void AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoricDatas)
         {
             var priceHistoricData = priceHistoricDatas.FirstOrDefault();
             if (priceHistoricData != null)
             {
-                var relevantToken = await GetRelevantToken(priceHistoricData.BaseTokenSymbol);
+                var relevantToken = GetRelevantToken(priceHistoricData.BaseTokenSymbol);
                 if (relevantToken != null)
                 {
                     var dataModelTokenPriceHistory = priceHistoricDatas
-                    .Select(data => new TokenPriceHistory
+                    .Select(data => new TokenPriceHistoricData
                     {
-                        TokenId = relevantToken.Id,
                         Timestamp = data.Timestamp,
                         USD_Price = data.USD_Price,
-                        EUR_Price = data.EUR_Price
+                        EUR_Price = data.EUR_Price,
+                        Token = relevantToken
                     }).ToList();
 
-                    this.galaxisContext.TokenPriceHistory.AddRange(dataModelTokenPriceHistory);
-                    await this.galaxisContext.SaveChangesAsync();
+                    dataModelTokenPriceHistory.ForEach(data => this.galaxisContext.TokenPriceHistoricDatas.Add(data));
+                    this.galaxisContext.SaveChanges();
                 }
             }
         }

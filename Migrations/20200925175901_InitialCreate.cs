@@ -66,7 +66,7 @@ namespace GalaxisProjectWebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TokenPriceHistory",
+                name: "TokenPriceHistoricDatas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -78,9 +78,9 @@ namespace GalaxisProjectWebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TokenPriceHistory", x => x.Id);
+                    table.PrimaryKey("PK_TokenPriceHistoricDatas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TokenPriceHistory_Tokens_TokenId",
+                        name: "FK_TokenPriceHistoricDatas_Tokens_TokenId",
                         column: x => x.TokenId,
                         principalTable: "Tokens",
                         principalColumn: "Id",
@@ -124,10 +124,9 @@ namespace GalaxisProjectWebAPI.Migrations
                 column: "TokenId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TokenPriceHistory_TokenId",
-                table: "TokenPriceHistory",
-                column: "TokenId",
-                unique: true);
+                name: "IX_TokenPriceHistoricDatas_TokenId",
+                table: "TokenPriceHistoricDatas",
+                column: "TokenId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -136,7 +135,7 @@ namespace GalaxisProjectWebAPI.Migrations
                 name: "FundTokens");
 
             migrationBuilder.DropTable(
-                name: "TokenPriceHistory");
+                name: "TokenPriceHistoricDatas");
 
             migrationBuilder.DropTable(
                 name: "Funds");

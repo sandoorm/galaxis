@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GalaxisProjectWebAPI.Migrations
 {
     [DbContext(typeof(GalaxisDbContext))]
-    [Migration("20200925103530_InitialCreate")]
+    [Migration("20200925175901_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,7 +101,7 @@ namespace GalaxisProjectWebAPI.Migrations
                     b.ToTable("Tokens");
                 });
 
-            modelBuilder.Entity("GalaxisProjectWebAPI.DataModel.TokenPriceHistory", b =>
+            modelBuilder.Entity("GalaxisProjectWebAPI.DataModel.TokenPriceHistoricData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -116,10 +116,9 @@ namespace GalaxisProjectWebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TokenId")
-                        .IsUnique();
+                    b.HasIndex("TokenId");
 
-                    b.ToTable("TokenPriceHistory");
+                    b.ToTable("TokenPriceHistoricDatas");
                 });
 
             modelBuilder.Entity("GalaxisProjectWebAPI.DataModel.Fund", b =>
@@ -143,11 +142,11 @@ namespace GalaxisProjectWebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("GalaxisProjectWebAPI.DataModel.TokenPriceHistory", b =>
+            modelBuilder.Entity("GalaxisProjectWebAPI.DataModel.TokenPriceHistoricData", b =>
                 {
                     b.HasOne("GalaxisProjectWebAPI.DataModel.Token", "Token")
-                        .WithOne("TokenPriceHistory")
-                        .HasForeignKey("GalaxisProjectWebAPI.DataModel.TokenPriceHistory", "TokenId")
+                        .WithOne("TokenPriceHistoricData")
+                        .HasForeignKey("GalaxisProjectWebAPI.DataModel.TokenPriceHistoricData", "TokenId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

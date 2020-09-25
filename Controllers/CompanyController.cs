@@ -10,7 +10,6 @@ using GalaxisProjectWebAPI.Model;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
-    [EnableCors("AllowAnyOriginPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class CompanyController
@@ -22,21 +21,18 @@ namespace GalaxisProjectWebAPI.Controllers
             this.companyRepository = companyRepository;
         }
 
-        [EnableCors("AllowAnyOriginPolicy")]
         [HttpGet("GetAllCompanies")]
         public IEnumerable<Company> GetAllCompanies()
         {
             return companyRepository.GetAllCompanies();
         }
 
-        [EnableCors("AllowAnyOriginPolicy")]
         [HttpGet("GetAllCompaniesWithFunds")]
         public IEnumerable<CompanyAndFunds> GetAllCompaniesWithFunds()
         {
             return companyRepository.GetAllCompaniesAndFunds();
         }
 
-        [EnableCors("AllowAnyOriginPolicy")]
         [HttpPost("Create")]
         public Task<int> CreateCompanyAsync([FromBody] CompanyCreateRequest companyCreateRequest)
         {

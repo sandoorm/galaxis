@@ -7,6 +7,6 @@ namespace GalaxisProjectWebAPI.Model
     {
         Task<List<PriceHistoricData>> GetAllHistoricPriceDataAsync(string baseTokenSymbol);
 
-        Task AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoryDatas);
+        void AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoryDatas);
     }
 }

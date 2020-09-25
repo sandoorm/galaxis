@@ -1,6 +1,6 @@
 ﻿namespace GalaxisProjectWebAPI.DataModel
 {
-    public class TokenPriceHistory
+    public class TokenPriceHistoricData
     {
         public int Id { get; set; }
         public int TokenId { get; set; }
