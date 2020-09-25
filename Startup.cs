@@ -24,7 +24,6 @@ namespace GalaxisProject_WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // localhost connection with the provided PostgreSQL docker-compose.yml
@@ -46,14 +45,14 @@ namespace GalaxisProject_WebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors(options => options.WithOrigins("http://localhost:8080"));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(options => options.WithOrigins("http://galaxis-git6-galaxis-sandbox.apps.us-east-2.starter.openshift-online.com",
-                                                     "http://localhost:8080")
-                                                        .AllowAnyMethod());
+            
             app.UseMvc();
 
             app.UseSwagger();
