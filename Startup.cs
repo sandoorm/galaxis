@@ -51,8 +51,9 @@ namespace GalaxisProject_WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(options => options.AllowAnyOrigin()
-                                    .AllowAnyMethod());
+            app.UseCors(options => options.WithOrigins("http://galaxis-git6-galaxis-sandbox.apps.us-east-2.starter.openshift-online.com",
+                                                     "http://localhost:8080")
+                                                        .AllowAnyMethod());
             app.UseMvc();
 
             app.UseSwagger();
