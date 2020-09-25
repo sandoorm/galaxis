@@ -24,7 +24,18 @@ namespace GalaxisProject_WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOriginPolicy",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // localhost connection with the provided PostgreSQL docker-compose.yml
@@ -52,13 +63,7 @@ namespace GalaxisProject_WebAPI
             }
 
             app.UseMvc();
-            app.UseCors(builder =>
-            {
-                builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            });
+            app.UseCors("AllowAnyOriginPolicy");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
