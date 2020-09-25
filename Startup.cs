@@ -14,8 +14,6 @@ namespace GalaxisProject_WebAPI
 {
     public class Startup
     {
-        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,12 +24,7 @@ namespace GalaxisProject_WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options => options.AddPolicy(MyAllowSpecificOrigins,
-                builder =>
-                {
-                    builder.AllowAnyOrigin();
-                }));
-
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // localhost connection with the provided PostgreSQL docker-compose.yml
@@ -59,6 +52,13 @@ namespace GalaxisProject_WebAPI
             }
 
             app.UseMvc();
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
