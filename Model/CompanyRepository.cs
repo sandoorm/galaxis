@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.DataModel;
 using GalaxisProjectWebAPI.Infrastructure;
-
+using Microsoft.EntityFrameworkCore;
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 
 namespace GalaxisProjectWebAPI.Model
@@ -38,25 +38,37 @@ namespace GalaxisProjectWebAPI.Model
                 });
         }
 
-        public Task<int> CreateCompanyAsync(CompanyCreateRequest companyCreateRequest)
+        public async Task<int> CreateCompanyAsync(CompanyCreateRequest companyCreateRequest)
         {
-            var company = new Company
+            Company company = null;
+            company = await this.galaxisContext
+                .Companies
+                .FirstOrDefaultAsync(x => x.CompanyName == companyCreateRequest.CompanyName
+                && x.ContactPersonEmail == companyCreateRequest.ContactPersonEmail);
+
+            int result = 0;
+            if (company == null)
             {
-                CompanyName = companyCreateRequest.CompanyName,
-                CompanyAddress = companyCreateRequest.CompanyAddress,
-                RegistrationNumber = companyCreateRequest.RegistrationNumber,
-                vatNumber = companyCreateRequest.vatNumber,
-                OfficialEmailAddress = companyCreateRequest.OfficialEmailAddress,
-                ContactPersonName =  companyCreateRequest.ContactPersonName,
-                Position = companyCreateRequest.Position,
-                ContactPersonPhoneNumber = companyCreateRequest.ContactPersonPhoneNumber,
-                ContactPersonEmail = companyCreateRequest.ContactPersonEmail,
+                company = new Company
+                {
+                    CompanyName = companyCreateRequest.CompanyName,
+                    CompanyAddress = companyCreateRequest.CompanyAddress,
+                    RegistrationNumber = companyCreateRequest.RegistrationNumber,
+                    vatNumber = companyCreateRequest.vatNumber,
+                    OfficialEmailAddress = companyCreateRequest.OfficialEmailAddress,
+                    ContactPersonName = companyCreateRequest.ContactPersonName,
+                    Position = companyCreateRequest.Position,
+                    ContactPersonPhoneNumber = companyCreateRequest.ContactPersonPhoneNumber,
+                    ContactPersonEmail = companyCreateRequest.ContactPersonEmail,
 
-                Funds = new List<DataModelFund>()
-            };
+                    Funds = new List<DataModelFund>()
+                };
 
-            this.galaxisContext.Companies.Add(company);
-            return this.galaxisContext.SaveChangesAsync();
+                this.galaxisContext.Companies.Add(company);
+                result = await this.galaxisContext.SaveChangesAsync();
+            }
+
+            return result;
         }
     }
 }   
