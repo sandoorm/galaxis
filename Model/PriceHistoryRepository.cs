@@ -22,18 +22,18 @@ namespace GalaxisProjectWebAPI.Model
 
         public async Task<List<PriceHistoricData>> GetAllHistoricPriceDataAsync(string baseTokenSymbol)
         {
-            DataModelToken foundToken = GetRelevantToken(baseTokenSymbol);
+            DataModelToken foundToken = await GetRelevantToken(baseTokenSymbol);
 
             return foundToken != null
                 ? GetTokenHistory(baseTokenSymbol, foundToken.Id)
                 : new List<PriceHistoricData>();
         }
 
-        private DataModelToken GetRelevantToken(string baseTokenSymbol)
+        private async Task<DataModelToken> GetRelevantToken(string baseTokenSymbol)
         {
-            return this.galaxisContext
+            return await this.galaxisContext
                 .Tokens
-                .FirstOrDefault(token => token.Symbol == baseTokenSymbol);
+                .FirstOrDefaultAsync(token => token.Symbol == baseTokenSymbol);
         }
 
         private List<PriceHistoricData> GetTokenHistory(string baseTokenSymbol, int tokenId)
@@ -51,12 +51,12 @@ namespace GalaxisProjectWebAPI.Model
                 .ToList();
         }
 
-        public void AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoricDatas)
+        public async Task AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoricDatas)
         {
             var priceHistoricData = priceHistoricDatas.FirstOrDefault();
             if (priceHistoricData != null)
             {
-                var relevantToken = GetRelevantToken(priceHistoricData.BaseTokenSymbol);
+                var relevantToken = await GetRelevantToken(priceHistoricData.BaseTokenSymbol);
                 if (relevantToken != null)
                 {
                     var dataModelTokenPriceHistory = priceHistoricDatas
@@ -69,7 +69,7 @@ namespace GalaxisProjectWebAPI.Model
                     }).ToList();
 
                     dataModelTokenPriceHistory.ForEach(data => this.galaxisContext.TokenPriceHistoricDatas.Add(data));
-                    this.galaxisContext.SaveChanges();
+                    await this.galaxisContext.SaveChangesAsync();
                 }
             }
         }
