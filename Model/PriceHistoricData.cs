@@ -3,7 +3,6 @@
     public class PriceHistoricData
     {
         public string BaseTokenSymbol { get; set; }
-        public string QuoteTokenSymbol { get; set; }
         public uint Timestamp { get; set; }
         public double USD_Price { get; set; }
         public double EUR_Price { get; set; }
