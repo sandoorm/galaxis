@@ -97,7 +97,7 @@ namespace GalaxisProjectWebAPI.Model
             return new DataModelFund
             {
                 Name = fundCreateRequest.Name,
-                Address = fundCreateRequest.Address,
+                FundAddress = fundCreateRequest.Address,
                 InvestmentFundManager = fundCreateRequest.InvestmentFundManager,
                 InvestmentFocus = fundCreateRequest.InvestmentFocus,
                 HighWaterMark = fundCreateRequest.HighWaterMark,
@@ -152,7 +152,7 @@ namespace GalaxisProjectWebAPI.Model
         {
             return await this.galaxisContext
                 .Funds
-                .FirstOrDefaultAsync(fund => fund.Address == fundAddress);
+                .FirstOrDefaultAsync(fund => fund.FundAddress == fundAddress);
         }
 
         private void AssignFundToCompany(Company company, DataModelFund fund)

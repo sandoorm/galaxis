@@ -13,7 +13,7 @@ namespace GalaxisProjectWebAPI.DataModel
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
+        public string FundAddress { get; set; }
         public string InvestmentFundManager { get; set; }
         public string InvestmentFocus { get; set; }
         public bool HighWaterMark { get; set; }
