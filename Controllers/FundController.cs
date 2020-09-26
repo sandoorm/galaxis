@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.Model;
 
-using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 using GalaxisProjectWebAPI.Model.Token;
+using GalaxisProjectWebAPI.Model.FundPerformanceCalculation;
+
+using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 
 namespace GalaxisProjectWebAPI.Controllers
 {
@@ -16,10 +18,12 @@ namespace GalaxisProjectWebAPI.Controllers
     public class FundController : ControllerBase
     {
         private readonly IFundRepository fundRepository;
+        private readonly IFundPerformanceCalculator fundPerformanceCalculator;
 
-        public FundController(IFundRepository fundRepository)
+        public FundController(IFundRepository fundRepository, IFundPerformanceCalculator fundPerformanceCalculator)
         {
             this.fundRepository = fundRepository;
+            this.fundPerformanceCalculator = fundPerformanceCalculator;
         }
 
         [HttpGet("GetAllFunds")]
@@ -40,10 +44,10 @@ namespace GalaxisProjectWebAPI.Controllers
             return await this.fundRepository.GetFundAndTokensAsync(fundAddress);
         }
 
-        [HttpGet("{fundAddress}/Performance/GetCurrentFundPerformance")]
-        public ActionResult<FundPerformance> GetCurrentFundPerformance(string fundAddress)
+        [HttpGet("{id}/Performance/GetFundPerformance")]
+        public async Task<ActionResult<FundPerformance>> GetCurrentFundPerformance(int id, string from, string to)
         {
-            return new FundPerformance();
+            return await this.fundPerformanceCalculator.CalculateFundPerformance(id, from, to);
         }
 
         [HttpPost("Create")]

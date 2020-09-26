@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.DataModel;
-using GalaxisProjectWebAPI.Infrastructure;
-
 using GalaxisProjectWebAPI.Model.Token;
+using GalaxisProjectWebAPI.Infrastructure;
 
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 

@@ -1,14 +1,17 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.OpenApi.Models;
 
 using GalaxisProjectWebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
 using GalaxisProjectWebAPI.Model;
+using GalaxisProjectWebAPI.Model.FundPerformanceCalculation;
 
 namespace GalaxisProject_WebAPI
 {
@@ -44,6 +47,7 @@ namespace GalaxisProject_WebAPI
             services.AddDbContext<GalaxisDbContext>(options =>
                 options.UseNpgsql(EnvVarHelper.GetGalaxisDbConnectionString()));
 
+            services.AddScoped<IFundPerformanceCalculator, FundPerformanceCalculator>();
             services.AddScoped<IFundRepository, FundRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ITokenRepository, TokenRepository>();
