@@ -52,12 +52,12 @@ namespace Galaxis_WebAPI
         {  
             var dummyDataStorage = new DummyDataStorage(galaxisContext);
 
-            // dummyDataStorage.SaveDummyDatas(new DummyCompanyFactory());
-            // dummyDataStorage.SaveDummyDatas(new DummyFundFactory());
-            // dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
-            // dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory());
+            dummyDataStorage.SaveDummyDatas(new DummyCompanyFactory());
+            dummyDataStorage.SaveDummyDatas(new DummyFundFactory());
+            dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
+            dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory());
 
-            // AddDummyFundTokenData(galaxisContext);
+            AddDummyFundTokenData(galaxisContext);
         }
 
         private static void AddDummyFundTokenData(DbContext galaxisContext)
