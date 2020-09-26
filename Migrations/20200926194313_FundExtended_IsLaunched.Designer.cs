@@ -2,15 +2,17 @@
 using GalaxisProjectWebAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace GalaxisProjectWebAPI.Migrations
 {
     [DbContext(typeof(GalaxisDbContext))]
-    partial class GalaxisDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200926194313_FundExtended_IsLaunched")]
+    partial class FundExtended_IsLaunched
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
