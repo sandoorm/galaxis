@@ -14,24 +14,21 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
                 new DataModelFund
                 {
                     CompanyId = 1,
-                    FundName = "Galaxis Fund_1",
-                    InvestmentFundManagerName = "Mate Brezovszki",
-                    FloorLevel = 0.65
+                    Name = "Galaxis Fund_1",
+                    InvestmentFundManager = "Mate Brezovszki"
                 },
                 new DataModelFund
                 {
                     CompanyId = 1,
-                    FundName = "Galaxis Fund_2",
-                    InvestmentFundManagerName = "Daniel Szego",
-                    FloorLevel = 0.7,
+                    Name = "Galaxis Fund_2",
+                    InvestmentFundManager = "Daniel Szego"
                     
                 },
                 new DataModelFund
                 {
                     CompanyId = 1,
-                    FundName = "Galaxis Fund_3",
-                    InvestmentFundManagerName = "Sandor Maraczy",
-                    FloorLevel = 0.65
+                    Name = "Galaxis Fund_3",
+                    InvestmentFundManager = "Sandor Maraczy"
                 }
             };
         }

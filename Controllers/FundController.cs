@@ -28,20 +28,20 @@ namespace GalaxisProjectWebAPI.Controllers
             return Ok(await this.fundRepository.GetAllFundsAsync());
         }
 
-        [HttpGet("{id}/GetFund")]
-        public async Task<ActionResult<DataModelFund>> GetFundById(int id) 
+        [HttpGet("{fundAddress}/GetFund")]
+        public async Task<ActionResult<DataModelFund>> GetFundById(string fundAddress) 
         {
-            return await this.fundRepository.GetFundByIdAsync(id);
+            return await this.fundRepository.GetFundByAddressAsync(fundAddress);
         }
 
-        [HttpGet("{id}/Tokens/GetCurrentTokens")]
-        public async Task<ActionResult<TokenList<FundTokenInfo>>> GetCurrentFundTokensById(int id)
+        [HttpGet("{fundAddress}/Tokens/GetCurrentTokens")]
+        public async Task<ActionResult<TokenList<FundTokenInfo>>> GetCurrentFundTokensById(string fundAddress)
         {
-            return await this.fundRepository.GetFundAndTokensAsync(id);
+            return await this.fundRepository.GetFundAndTokensAsync(fundAddress);
         }
 
-        [HttpGet("{id}/Performance/GetCurrentFundPerformance")]
-        public ActionResult<FundPerformance> GetCurrentFundPerformance(int id)
+        [HttpGet("{fundAddress}/Performance/GetCurrentFundPerformance")]
+        public ActionResult<FundPerformance> GetCurrentFundPerformance(string fundAddress)
         {
             return new FundPerformance();
         }
@@ -52,10 +52,10 @@ namespace GalaxisProjectWebAPI.Controllers
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
         }
 
-        [HttpPost("{id}/Tokens/AddTokenAllocationSnapshot")]
-        public async Task<int> AddTokenToFund(int id, [FromBody] FundTokenCreateRequest fundTokenCreateRequest)
+        [HttpPost("{fundAddress}/Tokens/AddTokenAllocationSnapshot")]
+        public async Task<int> AddTokenToFund(string fundAddress, [FromBody] FundTokenCreateRequest fundTokenCreateRequest)
         {
-            return await this.fundRepository.CreateFundTokensAsync(id, fundTokenCreateRequest);
+            return await this.fundRepository.CreateFundTokensAsync(fundAddress, fundTokenCreateRequest);
         }
     }
 }

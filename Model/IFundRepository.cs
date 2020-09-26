@@ -14,12 +14,12 @@ namespace GalaxisProjectWebAPI.Model
     {
         Task<IEnumerable<DataModelFund>> GetAllFundsAsync();
 
-        Task<ActionResult<DataModelFund>> GetFundByIdAsync(int fundId);
+        Task<ActionResult<DataModelFund>> GetFundByAddressAsync(string fundAddress);
 
-        Task<ActionResult<TokenList<FundTokenInfo>>> GetFundAndTokensAsync(int fundId);
+        Task<ActionResult<TokenList<FundTokenInfo>>> GetFundAndTokensAsync(string fundAddress);
 
         Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest);
 
-        Task<int> CreateFundTokensAsync(int id, FundTokenCreateRequest fundTokenCreateRequest);
+        Task<int> CreateFundTokensAsync(string fundAddress, FundTokenCreateRequest fundTokenCreateRequest);
     }
 }

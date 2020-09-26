@@ -10,8 +10,9 @@ using GalaxisProjectWebAPI.ApiModel;
 using GalaxisProjectWebAPI.DataModel;
 using GalaxisProjectWebAPI.Infrastructure;
 
-using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 using GalaxisProjectWebAPI.Model.Token;
+
+using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 
 namespace GalaxisProjectWebAPI.Model
 {
@@ -29,17 +30,23 @@ namespace GalaxisProjectWebAPI.Model
             return await this.galaxisContext.Funds.ToListAsync();
         }
 
-        public async Task<ActionResult<DataModelFund>> GetFundByIdAsync(int fundId)
+        public async Task<ActionResult<DataModelFund>> GetFundByAddressAsync(string fundAddress)
         {
-            return await this.galaxisContext.Funds.FindAsync(fundId);
+            return await GetFundAsync(fundAddress);
         }
 
-        public async Task<ActionResult<TokenList<FundTokenInfo>>> GetFundAndTokensAsync(int fundId)
+        public async Task<ActionResult<TokenList<FundTokenInfo>>> GetFundAndTokensAsync(string fundAddress)
         {
+            var fund = await GetFundAsync(fundAddress);
+            if (fund == null)
+            {
+                return null;
+            }
+
             var joinedFundTokens = await this.galaxisContext
                 .FundTokens
                 .Include(item => item.Token)
-                .Where(x => x.FundId == fundId)
+                .Where(x => x.FundId == fund.Id)
                 .ToListAsync();
 
             var groupedFundTokens = joinedFundTokens.GroupBy(
@@ -88,38 +95,50 @@ namespace GalaxisProjectWebAPI.Model
         {
             return new DataModelFund
             {
-                FundName = fundCreateRequest.FundName,
-                InvestmentFundManagerName = fundCreateRequest.InvestmentFundManagerName,
-                FloorLevel = fundCreateRequest.FloorLevel,
+                Name = fundCreateRequest.FundName,
+                InvestmentFundManager = fundCreateRequest.InvestmentFundManagerName,
                 Company = company
             };
         }
 
-        public async Task<int> CreateFundTokensAsync(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
+        public async Task<int> CreateFundTokensAsync(string fundAddress, FundTokenCreateRequest fundTokenCreateRequest)
         {
             var tokenAllocations = fundTokenCreateRequest.FundTokenAllocations;
+            int result = 0;
 
             if (tokenAllocations != null)
             {
+                uint batchTimeStamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
                 foreach (var tokenAllocation in tokenAllocations)
                 {
-                    var requestedFund = await this.galaxisContext.Funds.FindAsync(fundId);
-
-                    var token = this.galaxisContext
-                        .Tokens
-                        .FirstOrDefault(x => x.Name == tokenAllocation.TokenName);
-
-                    requestedFund.FundTokens.Add(new FundToken
+                    var requestedFund = await GetFundAsync(fundAddress);
+                    if (requestedFund != null)
                     {
-                        FundId = fundId,
-                        Quantity = tokenAllocation.Quantity,
-                        Timestamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
-                        TokenId = token.Id
-                    });
+                        var token = this.galaxisContext
+                            .Tokens
+                            .FirstOrDefault(x => x.Name == tokenAllocation.TokenName);
+
+                        requestedFund.FundTokens.Add(new FundToken
+                        {
+                            FundId = requestedFund.Id,
+                            Quantity = tokenAllocation.Quantity,
+                            Timestamp = batchTimeStamp,
+                            TokenId = token.Id
+                        });
+                    }
                 }
+
+                result = await this.galaxisContext.SaveChangesAsync();
             }
 
-            return await this.galaxisContext.SaveChangesAsync();
+            return result;
+        }
+
+        private async Task<DataModelFund> GetFundAsync(string fundAddress)
+        {
+            return await this.galaxisContext
+                .Funds
+                .FirstOrDefaultAsync(fund => fund.Address == fundAddress);
         }
 
         private void AssignFundToCompany(Company company, DataModelFund fund)
