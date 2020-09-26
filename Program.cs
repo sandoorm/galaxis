@@ -51,7 +51,7 @@ namespace Galaxis_WebAPI
 
             dummyDataStorage.SaveDummyDatas(new DummyCompanyFactory());
             dummyDataStorage.SaveDummyDatas(new DummyFundFactory());
-            dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
+            // dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
             dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory());
         }
     }
