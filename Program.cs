@@ -6,9 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using System.Collections.Generic;
+
 using GalaxisProject_WebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
 using GalaxisProjectWebAPI.Model.DummyDataFactory;
+using GalaxisProjectWebAPI.DataModel;
 
 namespace Galaxis_WebAPI
 {
@@ -49,10 +52,43 @@ namespace Galaxis_WebAPI
         {  
             var dummyDataStorage = new DummyDataStorage(galaxisContext);
 
-            dummyDataStorage.SaveDummyDatas(new DummyCompanyFactory());
-            dummyDataStorage.SaveDummyDatas(new DummyFundFactory());
+            // dummyDataStorage.SaveDummyDatas(new DummyCompanyFactory());
+            // dummyDataStorage.SaveDummyDatas(new DummyFundFactory());
             // dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
-            dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory());
+            // dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory());
+
+            AddDummyFundTokenData(galaxisContext);
+        }
+
+        private static void AddDummyFundTokenData(DbContext galaxisContext)
+        {
+            var dummyFundTokens = new List<FundToken>
+            {
+                new FundToken
+                {
+                    FundId = 1,
+                    TokenId = 1,
+                    Quantity = 3,
+                    Timestamp = 1601120674
+                },
+                new FundToken
+                {
+                    FundId = 1,
+                    TokenId = 1,
+                    Quantity = 2,
+                    Timestamp = 1601120664
+                },
+                new FundToken
+                {
+                    FundId = 2,
+                    TokenId = 2,
+                    Quantity = 1,
+                    Timestamp = 1601120654
+                }
+            };
+
+            galaxisContext.Set<FundToken>().AddRange(dummyFundTokens);
+            galaxisContext.SaveChanges();
         }
     }
 }

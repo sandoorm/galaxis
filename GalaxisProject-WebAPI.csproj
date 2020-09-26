@@ -18,6 +18,7 @@
     <Folder Include="ApiModel\" />
     <Folder Include="Model\Token\" />
     <Folder Include="Model\DummyDataFactory\" />
+    <Folder Include="Model\FundPerformanceCalculation\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App">
