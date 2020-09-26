@@ -18,10 +18,9 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
             where TDummyData : class, IData 
         {
             List<TDummyData> dummyDatas = factory.CreateDummyDatas();
-            int id = dummyDatas.First().Id;
 
             var dbSet = this.galaxisContext.Set<TDummyData>();
-            if (dbSet.Find(id) == null)
+            if (dbSet.Count() < 1)
             {
                 dbSet.AddRange(dummyDatas);
                 this.galaxisContext.SaveChanges();
