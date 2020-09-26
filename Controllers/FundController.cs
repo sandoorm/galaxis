@@ -44,10 +44,10 @@ namespace GalaxisProjectWebAPI.Controllers
             return await this.fundRepository.GetFundAndTokensAsync(fundAddress);
         }
 
-        [HttpGet("{id}/Performance/GetFundPerformance")]
-        public async Task<ActionResult<FundPerformance>> GetCurrentFundPerformance(int id, string from, string to)
+        [HttpGet("{fundAddress}/Performance/GetFundPerformance")]
+        public async Task<ActionResult<FundPerformance>> GetCurrentFundPerformance(string fundAddress, string from, string to)
         {
-            return await this.fundPerformanceCalculator.CalculateFundPerformance(id, from, to);
+            return await this.fundPerformanceCalculator.CalculateFundPerformance(fundAddress, from, to);
         }
 
         [HttpPost("Create")]

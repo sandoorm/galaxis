@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.Infrastructure;
 using System.Collections.Generic;
 
+using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 using DataModelFundToken = GalaxisProjectWebAPI.DataModel.FundToken;
-using System;
 
 namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 {
@@ -21,7 +22,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             this.galaxisContext = galaxisContext;
         }
 
-        public async Task<FundPerformance> CalculateFundPerformance(int fundId, string timeStampFrom, string timeStampTo)
+        public async Task<FundPerformance> CalculateFundPerformance(string fundAddress, string timeStampFrom, string timeStampTo)
         {
             Tuple<uint, uint> timeStampResults;
             if ((timeStampResults = TryParseTimeStamps(timeStampFrom, timeStampTo)) != null)
@@ -32,10 +33,11 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 uint timeStampDistance = timeStampToResult - timeStampFromResult;
                 int resultCount = (int)(timeStampDistance / timePeriodInSecods);
 
+                var fund = await GetFundAsync(fundAddress);
                 List<DataModelFundToken> joinedFundTokens = await this.galaxisContext
                     .FundTokens
                     .Include(item => item.Token)
-                    .Where(x => x.FundId == fundId)
+                    .Where(x => x.FundId == fund.Id)
                     .ToListAsync();
 
                 var joinedTokenPriceHistory = await this.galaxisContext
@@ -83,6 +85,13 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             }
 
             return null;
+        }
+
+        private async Task<DataModelFund> GetFundAsync(string fundAddress)
+        {
+            return await this.galaxisContext
+                .Funds
+                .FirstOrDefaultAsync(fund => fund.FundAddress == fundAddress);
         }
     }
 }
