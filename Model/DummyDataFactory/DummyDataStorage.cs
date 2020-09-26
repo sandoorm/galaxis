@@ -20,7 +20,8 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
             List<TDummyData> dummyDatas = factory.CreateDummyDatas();
 
             var dbSet = this.galaxisContext.Set<TDummyData>();
-            if (dbSet.Count() < 1)
+            int count = dbSet.Count();
+            if (count < 1)
             {
                 dbSet.AddRange(dummyDatas);
                 this.galaxisContext.SaveChanges();
