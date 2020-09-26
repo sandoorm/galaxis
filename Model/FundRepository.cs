@@ -95,24 +95,31 @@ namespace GalaxisProjectWebAPI.Model
             };
         }
 
-        public async Task<int> CreateFundTokenAsync(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
+        public async Task<int> CreateFundTokensAsync(int fundId, FundTokenCreateRequest fundTokenCreateRequest)
         {
-            var requestedFund = await this.galaxisContext.Funds.FindAsync(fundId);
-            var tokenToAssign = await this.galaxisContext.Tokens.FindAsync(1);
+            var tokenAllocations = fundTokenCreateRequest.FundTokenAllocations;
 
-            // this.dbContext.Tokens
-            //.FirstOrDefault(token => token.Name.Equals(fundTokenCreateRequest.TokenName));
-
-            requestedFund.FundTokens.Add(new FundToken
+            if (tokenAllocations != null)
             {
-                FundId = fundId,
-                Quantity = fundTokenCreateRequest.Quantity,
-                Timestamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
-                TokenId = tokenToAssign.Id
-            });
+                foreach (var tokenAllocation in tokenAllocations)
+                {
+                    var requestedFund = await this.galaxisContext.Funds.FindAsync(fundId);
 
-            await this.galaxisContext.SaveChangesAsync();
-            return 0;
+                    var token = this.galaxisContext
+                        .Tokens
+                        .FirstOrDefault(x => x.Name == tokenAllocation.TokenName);
+
+                    requestedFund.FundTokens.Add(new FundToken
+                    {
+                        FundId = fundId,
+                        Quantity = tokenAllocation.Quantity,
+                        Timestamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
+                        TokenId = token.Id
+                    });
+                }
+            }
+
+            return await this.galaxisContext.SaveChangesAsync();
         }
 
         private void AssignFundToCompany(Company company, DataModelFund fund)

@@ -52,10 +52,10 @@ namespace GalaxisProjectWebAPI.Controllers
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
         }
 
-        [HttpPost("{id}/Tokens/Add")]
+        [HttpPost("{id}/Tokens/AddTokenAllocationSnapshot")]
         public async Task<int> AddTokenToFund(int id, [FromBody] FundTokenCreateRequest fundTokenCreateRequest)
         {
-            return await this.fundRepository.CreateFundTokenAsync(id, fundTokenCreateRequest);
+            return await this.fundRepository.CreateFundTokensAsync(id, fundTokenCreateRequest);
         }
     }
 }

@@ -20,6 +20,6 @@ namespace GalaxisProjectWebAPI.Model
 
         Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest);
 
-        Task<int> CreateFundTokenAsync(int id, FundTokenCreateRequest fundTokenCreateRequest);
+        Task<int> CreateFundTokensAsync(int id, FundTokenCreateRequest fundTokenCreateRequest);
     }
 }

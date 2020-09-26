@@ -1,8 +1,11 @@
-﻿namespace GalaxisProjectWebAPI.ApiModel
+﻿using System.Collections.Generic;
+
+using GalaxisProjectWebAPI.Model.Token;
+
+namespace GalaxisProjectWebAPI.ApiModel
 {
     public class FundTokenCreateRequest
     {
-        public string TokenName { get; set; }
-        public int Quantity { get; set; }
+        public List<TokenAllocationInfo> FundTokenAllocations { get; set; }
     }
 }
