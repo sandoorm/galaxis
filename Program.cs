@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 
 using GalaxisProject_WebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
+using GalaxisProjectWebAPI.Model.DummyDataFactory;
 
 namespace Galaxis_WebAPI
 {
@@ -40,7 +41,17 @@ namespace Galaxis_WebAPI
 
                 var dbContext = services.GetRequiredService<TContext>();
                 dbContext.Database.Migrate();
+                CreateDumyDataIfNeeded(dbContext);
             }
+        }
+
+        private static void CreateDumyDataIfNeeded<TContext>(TContext galaxisContext) where TContext : DbContext
+        {  
+            var dummyDataStorage = new DummyDataStorage(galaxisContext);
+
+            dummyDataStorage.SaveDummyDatas(new DummyCompanyFactory());
+            dummyDataStorage.SaveDummyDatas(new DummyFundFactory());
+            dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
         }
     }
 }

@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GalaxisProjectWebAPI.Migrations
 {
     [DbContext(typeof(GalaxisDbContext))]
-    [Migration("20200925183521_InitialCreate")]
+    [Migration("20200926084853_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,13 +106,13 @@ namespace GalaxisProjectWebAPI.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double>("EUR_Price");
+                    b.Property<double>("EurPrice");
 
                     b.Property<long>("Timestamp");
 
                     b.Property<int>("TokenId");
 
-                    b.Property<double>("USD_Price");
+                    b.Property<double>("UsdPrice");
 
                     b.HasKey("Id");
 
@@ -145,8 +145,8 @@ namespace GalaxisProjectWebAPI.Migrations
             modelBuilder.Entity("GalaxisProjectWebAPI.DataModel.TokenPriceHistoricData", b =>
                 {
                     b.HasOne("GalaxisProjectWebAPI.DataModel.Token", "Token")
-                        .WithOne("TokenPriceHistoricData")
-                        .HasForeignKey("GalaxisProjectWebAPI.DataModel.TokenPriceHistoricData", "TokenId")
+                        .WithMany("TokenPriceHistoricDatas")
+                        .HasForeignKey("TokenId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

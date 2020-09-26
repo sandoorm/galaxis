@@ -73,8 +73,8 @@ namespace GalaxisProjectWebAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     TokenId = table.Column<int>(nullable: false),
                     Timestamp = table.Column<long>(nullable: false),
-                    USD_Price = table.Column<double>(nullable: false),
-                    EUR_Price = table.Column<double>(nullable: false)
+                    UsdPrice = table.Column<double>(nullable: false),
+                    EurPrice = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

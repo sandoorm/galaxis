@@ -1,6 +1,8 @@
-﻿namespace GalaxisProjectWebAPI.DataModel
+﻿using GalaxisProjectWebAPI.Model.DummyDataFactory;
+
+namespace GalaxisProjectWebAPI.DataModel
 {
-    public class CompanyRepresentative
+    public class CompanyRepresentative : IData
     {
         public int Id { get; set; }
         public string UserName { get; set; }

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using GalaxisProjectWebAPI.Model.DummyDataFactory;
 
 namespace GalaxisProjectWebAPI.DataModel
 {
-    public class Company
+    public class Company : IData
     {
         public int Id { get; set; }
         public string CompanyName { get; set; }

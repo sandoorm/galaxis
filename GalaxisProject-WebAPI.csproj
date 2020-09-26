@@ -17,6 +17,7 @@
     <Folder Include="Migrations\" />
     <Folder Include="ApiModel\" />
     <Folder Include="Model\Token\" />
+    <Folder Include="Model\DummyDataFactory\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App">

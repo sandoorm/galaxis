@@ -1,6 +1,8 @@
-﻿namespace GalaxisProjectWebAPI.DataModel
+﻿using GalaxisProjectWebAPI.Model.DummyDataFactory;
+
+namespace GalaxisProjectWebAPI.DataModel
 {
-    public class TokenPriceHistoricData
+    public class TokenPriceHistoricData : IData
     {
         public int Id { get; set; }
         public int TokenId { get; set; }

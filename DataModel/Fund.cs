@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using GalaxisProjectWebAPI.Model.DummyDataFactory;
 
 namespace GalaxisProjectWebAPI.DataModel
 {
-    public class Fund
+    public class Fund : IData
     {
         public Fund()
         {
