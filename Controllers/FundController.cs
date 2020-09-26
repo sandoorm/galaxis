@@ -29,13 +29,13 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpGet("{fundAddress}/GetFund")]
-        public async Task<ActionResult<DataModelFund>> GetFundById(string fundAddress) 
+        public async Task<ActionResult<DataModelFund>> GetFundByAddress(string fundAddress) 
         {
             return await this.fundRepository.GetFundByAddressAsync(fundAddress);
         }
 
-        [HttpGet("{fundAddress}/Tokens/GetCurrentTokens")]
-        public async Task<ActionResult<TokenList<FundTokenInfo>>> GetCurrentFundTokensById(string fundAddress)
+        [HttpGet("{fundAddress}/Tokens/GetCurrentTokenAllocation")]
+        public async Task<ActionResult<TokenList<FundTokenInfo>>> GetCurrentTokenAllocation(string fundAddress)
         {
             return await this.fundRepository.GetFundAndTokensAsync(fundAddress);
         }
@@ -50,6 +50,12 @@ namespace GalaxisProjectWebAPI.Controllers
         public async Task<int> CreateFundAsync([FromBody] FundCreateRequest fundCreateRequest)
         {
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
+        }
+
+        [HttpPost("{fundAddress}/Launch")]
+        public async Task<int> LaunchFund(string fundAddress)
+        {
+            return await this.fundRepository.LaunchFundAsync(fundAddress);
         }
 
         [HttpPost("{fundAddress}/Tokens/AddTokenAllocationSnapshot")]

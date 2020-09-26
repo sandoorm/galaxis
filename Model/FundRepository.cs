@@ -27,7 +27,8 @@ namespace GalaxisProjectWebAPI.Model
 
         public async Task<IEnumerable<DataModelFund>> GetAllFundsAsync()
         {
-            return await this.galaxisContext.Funds.ToListAsync();
+            var funds = await this.galaxisContext.Funds.ToListAsync();
+            return funds.OrderBy(x => x.Id);
         }
 
         public async Task<ActionResult<DataModelFund>> GetFundByAddressAsync(string fundAddress)
@@ -95,9 +96,22 @@ namespace GalaxisProjectWebAPI.Model
         {
             return new DataModelFund
             {
-                Name = fundCreateRequest.FundName,
-                InvestmentFundManager = fundCreateRequest.InvestmentFundManagerName,
-                Company = company
+                Name = fundCreateRequest.Name,
+                Address = fundCreateRequest.Address,
+                InvestmentFundManager = fundCreateRequest.InvestmentFundManager,
+                InvestmentFocus = fundCreateRequest.InvestmentFocus,
+                HighWaterMark = fundCreateRequest.HighWaterMark,
+                HurdleRate = fundCreateRequest.HurdleRate,
+                HurdleRatePercentage = fundCreateRequest.HurdleRatePercentage,
+                DepositStartTimeStamp = fundCreateRequest.DepositStartTimeStamp,
+                DepositCloseTimeStamp = fundCreateRequest.DepositCloseTimeStamp,
+                CloseTimeStamp = fundCreateRequest.CloseTimeStamp,
+                BaseCurrency = fundCreateRequest.BaseCurrency,
+                MinimumContribution = fundCreateRequest.MinimumContribution,
+                MaximumContribution = fundCreateRequest.MaximumContribution,
+                IsLaunched = false,
+                Company = company,
+                CompanyId = company.Id
             };
         }
 
@@ -151,6 +165,14 @@ namespace GalaxisProjectWebAPI.Model
             {
                 company.Funds.Add(fund);
             }
+        }
+
+        public async Task<int> LaunchFundAsync(string fundAddress)
+        {
+            var fund = await GetFundAsync(fundAddress);
+            fund.IsLaunched = true;
+
+            return this.galaxisContext.SaveChanges();
         }
     }
 }
