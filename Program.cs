@@ -57,7 +57,7 @@ namespace Galaxis_WebAPI
             // dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
             // dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory());
 
-            AddDummyFundTokenData(galaxisContext);
+            // AddDummyFundTokenData(galaxisContext);
         }
 
         private static void AddDummyFundTokenData(DbContext galaxisContext)
