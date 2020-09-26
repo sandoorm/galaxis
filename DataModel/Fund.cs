@@ -23,8 +23,8 @@ namespace GalaxisProjectWebAPI.DataModel
         public uint DepositCloseTimeStamp { get; set; }
         public uint CloseTimeStamp { get; set; }
         public string BaseCurrency { get; set; }
-        public uint MinimumContribution { get; set; }
-        public uint MaximumContribution { get; set; }
+        public double MinimumContribution { get; set; }
+        public double MaximumContribution { get; set; }
         public bool IsLaunched { get; set; }
 
         public Company Company { get; set; }
