@@ -45,9 +45,9 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpGet("{fundAddress}/Performance/GetFundPerformance")]
-        public async Task<ActionResult<FundPerformance>> GetCurrentFundPerformance(string fundAddress, string from, string to)
+        public async Task<ActionResult<FundPerformance>> GetCurrentFundPerformance(string fundAddress)
         {
-            return await this.fundPerformanceCalculator.CalculateFundPerformance(fundAddress, from, to);
+            return await this.fundPerformanceCalculator.CalculateFundPerformance(fundAddress);
         }
 
         [HttpPost("Create")]

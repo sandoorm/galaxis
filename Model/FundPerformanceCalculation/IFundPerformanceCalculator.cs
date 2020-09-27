@@ -4,6 +4,6 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 {
     public interface IFundPerformanceCalculator
     {
-        Task<FundPerformance> CalculateFundPerformance(string fundAddress, string timeStampFrom, string timeStampTo);
+        Task<FundPerformance> CalculateFundPerformance(string fundAddress);
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.Infrastructure;
-using System.Collections.Generic;
+using GalaxisProjectWebAPI.Model.Token;
 
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
 using DataModelFundToken = GalaxisProjectWebAPI.DataModel.FundToken;
@@ -14,7 +15,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 {
     public class FundPerformanceCalculator : IFundPerformanceCalculator
     {
-        private readonly int timePeriodInSecods = 3600;
+        private readonly int timeRange = 3600;
         private readonly GalaxisDbContext galaxisContext;
 
         public FundPerformanceCalculator(GalaxisDbContext galaxisContext)
@@ -22,97 +23,106 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             this.galaxisContext = galaxisContext;
         }
 
-        public async Task<FundPerformance> CalculateFundPerformance(string fundAddress, string timeStampFrom, string timeStampTo)
+        public async Task<FundPerformance> CalculateFundPerformance(string fundAddress)
         {
-            Tuple<uint, uint> timeStampResults;
-            if ((timeStampResults = TryParseTimeStamps(timeStampFrom, timeStampTo)) != null)
+            var fund = await GetFundAsync(fundAddress);
+            uint currentTimeStamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            uint diff = currentTimeStamp - fund.DepositStartTimeStamp;
+
+            int resultCount = (int)(diff / timeRange);
+            var resultList = new List<long>();
+            for (int i = 0; i < resultCount; i++)
             {
-                uint timeStampFromResult = timeStampResults.Item1;
-                uint timeStampToResult = timeStampResults.Item2;
-
-                uint timeStampDistance = timeStampToResult - timeStampFromResult;
-                int resultCount = (int)(timeStampDistance / timePeriodInSecods);
-
-                var fund = await GetFundAsync(fundAddress);
-                List<DataModelFundToken> joinedFundTokens = await this.galaxisContext
-                    .FundTokens
-                    .Include(item => item.Token)
-                    .Where(x => x.FundId == fund.Id)
-                    .ToListAsync();
-
-                //var relevantFundTokens = joinedFundTokens
-                //    .Where(fundToken =>
-                //       fundToken.Timestamp >= timeStampResults.Item1
-                //    && fundToken.Timestamp <= timeStampResults.Item2)
-                //    .ToList();
-
-                var groupedFundTokens = joinedFundTokens.GroupBy(
-                    x => new { x.Timestamp },
-                    x => new { x.Token.Symbol, x.Quantity },
-                    (key, result) => new { Key = key, TokenSymbolAndQuantity = result })
-                    .OrderByDescending(x => x.Key.Timestamp)
-                    .ToList();
-
-                var priceHistory = await this.galaxisContext.TokenPriceHistoricDatas
-                    .Include(x => x.Token)
-                    .ToListAsync();
-
-                var res = priceHistory.GroupBy(
-                    x => new { x.Timestamp },
-                    x => new { x.Token.Symbol, x.UsdPrice },
-                    (key, result) => new
-                    {
-                        Key = key,
-                        Result = result
-                    }).ToList();
-
-                var finalResult = groupedFundTokens.Join(res,
-                    x => x.Key.Timestamp,
-                    y => y.Key.Timestamp,
-                    (x, y) => new { TokenAllocationDetails = x, TokenPriceDetails = y })
-                    .ToList();
-
-                foreach (var resultElement in finalResult)
-                {
-                    var currentAllocation = resultElement.TokenAllocationDetails;
-                    var currentPriceDetails = resultElement.TokenPriceDetails;
-
-                    foreach (var item in currentAllocation.TokenSymbolAndQuantity)
-                    {
-                        var matchingPriceDetail = currentPriceDetails
-                            .Result
-                            .FirstOrDefault(x => x.Symbol == item.Symbol);
-
-                        if (matchingPriceDetail != null)
-                        {
-                            var value = item.Quantity * matchingPriceDetail.UsdPrice;
-                        }
-                    }
-
-                    var quantityInfo = currentAllocation.TokenSymbolAndQuantity;
-                    var cucc = currentPriceDetails.Result;
-                }
-
-                
-
-                return null;
+                resultList.Add(fund.DepositStartTimeStamp + (i * timeRange));
             }
 
-            return null;
+            var timeStampResults = resultList.Select(x => (uint)x).ToList();
+
+            List<DataModelFundToken> joinedFundTokens = await this.galaxisContext
+                .FundTokens
+                .Include(item => item.Token)
+                .Where(x => x.FundId == fund.Id)
+                .OrderByDescending(x => x.Timestamp)
+                .ToListAsync();
+
+            var fundTokenMapping = MapFundTokensToRelevantTimeStamp(
+                resultCount,
+                timeStampResults,
+                joinedFundTokens);
+
+            var priceHistory = await this.galaxisContext.TokenPriceHistoricDatas
+                .Include(x => x.Token)
+                .ToListAsync();
+
+            var groupedPriceHistory = priceHistory.GroupBy(
+                x => new { x.Timestamp },
+                x => new { x.Token.Symbol, x.UsdPrice },
+                (key, result) => new
+                {
+                    Key = key,
+                    Result = result
+                }).ToList();
+
+            var finalResult = fundTokenMapping.Keys.Join(groupedPriceHistory,
+                x => x,
+                y => y.Key.Timestamp,
+                (x, y) => new { TokenAllocationDetails = x, TokenPriceDetails = y })
+                .ToList();
+
+            //foreach (var resultElement in finalResult)
+            //{
+            //    var currentAllocation = resultElement.TokenAllocationDetails;
+            //    var currentPriceDetails = resultElement.TokenPriceDetails;
+
+            //    foreach (var item in currentAllocation.TokenSymbolAndQuantity)
+            //    {
+            //        var matchingPriceDetail = currentPriceDetails
+            //            .Result
+            //            .FirstOrDefault(x => x.Symbol == item.Symbol);
+
+            //        if (matchingPriceDetail != null)
+            //        {
+            //            var value = item.Quantity * matchingPriceDetail.UsdPrice;
+            //        }
+            //    }
+
+            //    var quantityInfo = currentAllocation.TokenSymbolAndQuantity;
+            //    var cucc = currentPriceDetails.Result;
+            //}
+
+            return new FundPerformance();
         }
 
-        private Tuple<uint, uint> TryParseTimeStamps(string timeStampFrom, string timeStampTo)
+        private Dictionary<uint, List<TokenAllocationInfo>> MapFundTokensToRelevantTimeStamp(int resultCount, List<uint> timeStampResults, List<DataModelFundToken> joinedFundTokens)
         {
-            uint timeStampFromResult;
-            uint timeStampToResult;
+            var groupedFundTokens = joinedFundTokens.GroupBy(
+                            x => new { x.Timestamp },
+                            x => new { x.Token.Symbol, x.Quantity },
+                            (key, result) => new { Key = key, TokenSymbolAndQuantity = result })
+                            .OrderBy(x => x.Key.Timestamp)
+                            .ToList();
 
-            if (uint.TryParse(timeStampFrom, out timeStampFromResult)
-                && uint.TryParse(timeStampTo, out timeStampToResult))
+            Dictionary<uint, List<TokenAllocationInfo>> fundTokenMapping = new Dictionary<uint, List<TokenAllocationInfo>>();
+
+            int fundTokenCount = groupedFundTokens.Count;
+            for (int i = 0; i < resultCount; i++)
             {
-                return new Tuple<uint, uint>(timeStampFromResult, timeStampToResult);
+                List<TokenAllocationInfo> allocationInfos = new List<TokenAllocationInfo>();
+
+                int index = i < fundTokenCount ? i : fundTokenCount - 1;
+                foreach (var info in groupedFundTokens[index].TokenSymbolAndQuantity)
+                {
+                    allocationInfos.Add(new TokenAllocationInfo
+                    {
+                        TokenSymbol = info.Symbol,
+                        Quantity = info.Quantity
+                    });
+                }
+
+                fundTokenMapping.Add(timeStampResults[i], allocationInfos);
             }
 
-            return null;
+            return fundTokenMapping;
         }
 
         private async Task<DataModelFund> GetFundAsync(string fundAddress)
