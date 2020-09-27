@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 using GalaxisProjectWebAPI.Model.DummyDataFactory;
 
 namespace GalaxisProjectWebAPI.DataModel
@@ -12,6 +14,8 @@ namespace GalaxisProjectWebAPI.DataModel
 
         public int Id { get; set; }
         public int CompanyId { get; set; }
+
+        [Required]
         public string Name { get; set; }
         public string FundAddress { get; set; }
         public string InvestmentFundManager { get; set; }
@@ -25,6 +29,8 @@ namespace GalaxisProjectWebAPI.DataModel
         public string BaseCurrency { get; set; }
         public double MinimumContribution { get; set; }
         public double MaximumContribution { get; set; }
+        public double MinimumCapital { get; set; }
+        public double MaximumCapital { get; set; }
         public bool IsLaunched { get; set; }
 
         public Company Company { get; set; }

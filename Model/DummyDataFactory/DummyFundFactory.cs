@@ -14,19 +14,21 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
                 new DataModelFund
                 {
                     CompanyId = 1,
-                    Name = "Galaxis Fund_1",
-                    FundAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7",
-                    InvestmentFundManager = "Mate Brezovszki",
-                    InvestmentFocus = "The fund seeks to make investment in Ether",
+                    Name = "DEFI test fund",
+                    FundAddress = "0x82cC21bFa2745d5E03ef342662676B2AA89Bc658",
+                    InvestmentFundManager = "Gordon Gekko",
+                    InvestmentFocus = "Earn interest by integrating different DEFI protocols",
                     HighWaterMark = false,
                     HurdleRate = true,
-                    HurdleRatePercentage = 0.7,
-                    DepositStartTimeStamp = 1601130611,
-                    DepositCloseTimeStamp = 1601130811,
-                    CloseTimeStamp = 1601130850,
+                    HurdleRatePercentage = 1.2,
+                    DepositStartTimeStamp = 1601144460,
+                    DepositCloseTimeStamp = 1601231100,
+                    CloseTimeStamp = 1759343100,
                     BaseCurrency = "USD",
-                    MinimumContribution = 0.6,
-                    MaximumContribution = 1.9
+                    MinimumContribution = 0,
+                    MaximumContribution = 10,
+                    MinimumCapital = 0,
+                    MaximumCapital = 10
                 },
                 new DataModelFund
                 {
@@ -37,31 +39,35 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
                     InvestmentFocus = "The fund seeks to make investment in various utility tokens",
                     HighWaterMark = false,
                     HurdleRate = true,
-                    HurdleRatePercentage = 0.7,
+                    HurdleRatePercentage = 1.1,
                     DepositStartTimeStamp = 1702130500,
                     DepositCloseTimeStamp = 1702130900,
                     CloseTimeStamp = 1601130850,
                     BaseCurrency = "USD",
                     MinimumContribution = 0.6,
-                    MaximumContribution = 5
+                    MaximumContribution = 5,
+                    MinimumCapital = 0,
+                    MaximumCapital = 15
 
                 },
                 new DataModelFund
                 {
-                    CompanyId = 1,
+                    CompanyId = 2,
                     Name = "Galaxis Fund_3",
                     FundAddress = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
                     InvestmentFundManager = "Sandor Maraczy",
                     InvestmentFocus = "The fund seeks to make investment in carefully selected Blockchain based utility tokens",
                     HighWaterMark = false,
                     HurdleRate = true,
-                    HurdleRatePercentage = 0.7,
+                    HurdleRatePercentage = 1,
                     DepositStartTimeStamp = 1702130100,
                     DepositCloseTimeStamp = 1702130800,
                     CloseTimeStamp = 1601130850,
                     BaseCurrency = "USD",
                     MinimumContribution = 0.3,
-                    MaximumContribution = 13
+                    MaximumContribution = 13,
+                    MinimumCapital = 0,
+                    MaximumCapital = 13
                 }
             };
         }

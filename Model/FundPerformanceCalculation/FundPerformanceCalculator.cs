@@ -40,13 +40,13 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                     .Where(x => x.FundId == fund.Id)
                     .ToListAsync();
 
-                var relevantFundTokens = joinedFundTokens
-                    .Where(fundToken =>
-                       fundToken.Timestamp >= timeStampResults.Item1
-                    && fundToken.Timestamp <= timeStampResults.Item2)
-                    .ToList();
+                //var relevantFundTokens = joinedFundTokens
+                //    .Where(fundToken =>
+                //       fundToken.Timestamp >= timeStampResults.Item1
+                //    && fundToken.Timestamp <= timeStampResults.Item2)
+                //    .ToList();
 
-                var groupedFundTokens = relevantFundTokens.GroupBy(
+                var groupedFundTokens = joinedFundTokens.GroupBy(
                     x => new { x.Timestamp },
                     x => new { x.Token.Symbol, x.Quantity },
                     (key, result) => new { Key = key, TokenSymbolAndQuantity = result })

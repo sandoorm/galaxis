@@ -44,11 +44,11 @@ namespace Galaxis_WebAPI
 
                 var dbContext = services.GetRequiredService<TContext>();
                 dbContext.Database.Migrate();
-                // CreateDumyDataIfNeeded(dbContext);
+                CreateDummyDataIfNeeded(dbContext);
             }
         }
 
-        private static void CreateDumyDataIfNeeded<TContext>(TContext galaxisContext) where TContext : DbContext
+        private static void CreateDummyDataIfNeeded<TContext>(TContext galaxisContext) where TContext : DbContext
         {  
             var dummyDataStorage = new DummyDataStorage(galaxisContext);
 
