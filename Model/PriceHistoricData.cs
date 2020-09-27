@@ -4,7 +4,7 @@
     {
         public string BaseTokenSymbol { get; set; }
         public uint Timestamp { get; set; }
-        public double USD_Price { get; set; }
-        public double EUR_Price { get; set; }
+        public double USDPrice { get; set; }
+        public double EURPrice { get; set; }
     }
 }

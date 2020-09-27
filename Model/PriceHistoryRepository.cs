@@ -45,8 +45,8 @@ namespace GalaxisProjectWebAPI.Model
                 {
                     BaseTokenSymbol = baseTokenSymbol,
                     Timestamp = historicData.Timestamp,
-                    USD_Price = historicData.UsdPrice,
-                    EUR_Price = historicData.EurPrice
+                    USDPrice = historicData.UsdPrice,
+                    EURPrice = historicData.EurPrice
                 })
                 .ToList();
         }
@@ -63,8 +63,8 @@ namespace GalaxisProjectWebAPI.Model
                     .Select(data => new TokenPriceHistoricData
                     {
                         Timestamp = data.Timestamp,
-                        UsdPrice = data.USD_Price,
-                        EurPrice = data.EUR_Price,
+                        UsdPrice = data.USDPrice,
+                        EurPrice = data.EURPrice,
                         Token = relevantToken
                     }).ToList();
 
