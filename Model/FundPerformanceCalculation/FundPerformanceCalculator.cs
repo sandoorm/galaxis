@@ -40,32 +40,60 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                     .Where(x => x.FundId == fund.Id)
                     .ToListAsync();
 
-                var joinedTokenPriceHistory = await this.galaxisContext
-                    .Tokens
-                    .Join(this.galaxisContext.TokenPriceHistoricDatas,
-                    token => token.Id,
-                    historicData => historicData.TokenId,
-                    (token, priceHistory) => new
-                    {
-                        token.Symbol,
-                        HistoricDatas = priceHistory
-                    })
-                    .ToListAsync();
+                var relevantFundTokens = joinedFundTokens
+                    .Where(fundToken =>
+                       fundToken.Timestamp >= timeStampResults.Item1
+                    && fundToken.Timestamp <= timeStampResults.Item2)
+                    .ToList();
 
-                var groupedFundTokens = joinedFundTokens.GroupBy(
+                var groupedFundTokens = relevantFundTokens.GroupBy(
                     x => new { x.Timestamp },
                     x => new { x.Token.Symbol, x.Quantity },
                     (key, result) => new { Key = key, TokenSymbolAndQuantity = result })
                     .OrderByDescending(x => x.Key.Timestamp)
                     .ToList();
 
-                var res = joinedFundTokens.Select(x => x.Token.TokenPriceHistoricDatas).ToList();
+                var priceHistory = await this.galaxisContext.TokenPriceHistoricDatas
+                    .Include(x => x.Token)
+                    .ToListAsync();
 
-                var relevantFundTokens = joinedFundTokens
-                    .Where(fundToken =>
-                       fundToken.Timestamp >= timeStampResults.Item1
-                    && fundToken.Timestamp <= timeStampResults.Item2)
+                var res = priceHistory.GroupBy(
+                    x => new { x.Timestamp },
+                    x => new { x.Token.Symbol, x.UsdPrice },
+                    (key, result) => new
+                    {
+                        Key = key,
+                        Result = result
+                    }).ToList();
+
+                var finalResult = groupedFundTokens.Join(res,
+                    x => x.Key.Timestamp,
+                    y => y.Key.Timestamp,
+                    (x, y) => new { TokenAllocationDetails = x, TokenPriceDetails = y })
                     .ToList();
+
+                foreach (var resultElement in finalResult)
+                {
+                    var currentAllocation = resultElement.TokenAllocationDetails;
+                    var currentPriceDetails = resultElement.TokenPriceDetails;
+
+                    foreach (var item in currentAllocation.TokenSymbolAndQuantity)
+                    {
+                        var matchingPriceDetail = currentPriceDetails
+                            .Result
+                            .FirstOrDefault(x => x.Symbol == item.Symbol);
+
+                        if (matchingPriceDetail != null)
+                        {
+                            var value = item.Quantity * matchingPriceDetail.UsdPrice;
+                        }
+                    }
+
+                    var quantityInfo = currentAllocation.TokenSymbolAndQuantity;
+                    var cucc = currentPriceDetails.Result;
+                }
+
+                
 
                 return null;
             }
