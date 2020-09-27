@@ -20,21 +20,16 @@ namespace GalaxisProjectWebAPI.Model
             this.galaxisContext = galaxisContext;
         }
 
-        public async Task<List<PriceHistoricData>> GetAllHistoricPriceDataAsync(string baseTokenSymbol)
+        public List<PriceHistoricData> GetAllHistoricPriceDataAsync(string baseTokenSymbol)
         {
-            DataModelToken foundToken = await GetRelevantToken(baseTokenSymbol);
+            DataModelToken foundToken = GetRelevantToken(baseTokenSymbol);
 
             return foundToken != null
                 ? GetTokenHistory(baseTokenSymbol, foundToken.Id)
                 : new List<PriceHistoricData>();
         }
 
-        private async Task<DataModelToken> GetRelevantToken(string baseTokenSymbol)
-        {
-            return await this.galaxisContext
-                .Tokens
-                .FirstOrDefaultAsync(token => token.Symbol == baseTokenSymbol);
-        }
+        
 
         private List<PriceHistoricData> GetTokenHistory(string baseTokenSymbol, int tokenId)
         {
@@ -51,12 +46,12 @@ namespace GalaxisProjectWebAPI.Model
                 .ToList();
         }
 
-        public async Task AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoricDatas)
+        public void AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoricDatas)
         {
             var priceHistoricData = priceHistoricDatas.FirstOrDefault();
             if (priceHistoricData != null)
             {
-                var relevantToken = await GetRelevantToken(priceHistoricData.BaseTokenSymbol);
+                var relevantToken = GetRelevantToken(priceHistoricData.BaseTokenSymbol);
                 if (relevantToken != null)
                 {
                     var dataModelTokenPriceHistory = priceHistoricDatas
@@ -68,10 +63,17 @@ namespace GalaxisProjectWebAPI.Model
                         Token = relevantToken
                     }).ToList();
 
-                    dataModelTokenPriceHistory.ForEach(data => this.galaxisContext.TokenPriceHistoricDatas.Add(data));
-                    await this.galaxisContext.SaveChangesAsync();
+                    this.galaxisContext.TokenPriceHistoricDatas.AddRange(dataModelTokenPriceHistory);
+                    this.galaxisContext.SaveChanges();
                 }
             }
+        }
+
+        private DataModelToken GetRelevantToken(string baseTokenSymbol)
+        {
+            return this.galaxisContext
+                .Tokens
+                .FirstOrDefault(token => token.Symbol == baseTokenSymbol);
         }
     }
 }

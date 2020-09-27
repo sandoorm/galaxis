@@ -20,9 +20,9 @@ namespace GalaxisProjectWebAPI.Controllers
         }
 
         [HttpGet("GetHistoricPriceData")]
-        public async Task<ActionResult<IEnumerable<PriceHistoricData>>> GetHistoricPriceData(string baseTokenSymbol)
+        public ActionResult<IEnumerable<PriceHistoricData>> GetHistoricPriceData(string baseTokenSymbol)
         {
-            return await this.priceHistoryRepository
+            return this.priceHistoryRepository
                 .GetAllHistoricPriceDataAsync(baseTokenSymbol);
         }
 
