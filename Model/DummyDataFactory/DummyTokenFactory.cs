@@ -10,18 +10,18 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
         {
             return new List<DataModelToken>
             {
-                //new DataModelToken
-                //{
-                //    Symbol = "ETH",
-                //    Name = "Ether",
-                //    Decimals = 18
-                //},
-                //new DataModelToken
-                //{
-                //    Symbol = "BTC",
-                //    Name = "Bitcoin",
-                //    Decimals = 18
-                //},
+                new DataModelToken
+                {
+                    Symbol = "ETH",
+                    Name = "Ether",
+                    Decimals = 18
+                },
+                new DataModelToken
+                {
+                    Symbol = "BTC",
+                    Name = "Bitcoin",
+                    Decimals = 18
+                },
                 new DataModelToken
                 {
                     Symbol = "DAI",
