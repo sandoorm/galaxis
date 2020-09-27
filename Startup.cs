@@ -12,6 +12,7 @@ using GalaxisProjectWebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
 using GalaxisProjectWebAPI.Model;
 using GalaxisProjectWebAPI.Model.FundPerformanceCalculation;
+using GalaxisProjectWebAPI.Model.TokenPriceHistoryProvider;
 
 namespace GalaxisProject_WebAPI
 {
@@ -47,6 +48,7 @@ namespace GalaxisProject_WebAPI
             services.AddDbContext<GalaxisDbContext>(options =>
                 options.UseNpgsql(EnvVarHelper.GetGalaxisDbConnectionString()));
 
+            services.AddScoped<ITokenPriceHistoryProvider, TokenPriceHistoryProvider>();
             services.AddScoped<IFundPerformanceCalculator, FundPerformanceCalculator>();
             services.AddScoped<IFundRepository, FundRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
