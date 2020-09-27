@@ -129,7 +129,7 @@ namespace GalaxisProjectWebAPI.Model
                     {
                         var token = this.galaxisContext
                             .Tokens
-                            .FirstOrDefault(x => x.Name == tokenAllocation.TokenName);
+                            .FirstOrDefault(t => t.Symbol == tokenAllocation.TokenSymbol);
 
                         requestedFund.FundTokens.Add(new FundToken
                         {

@@ -2,7 +2,7 @@
 {
     public class TokenAllocationInfo
     {
-        public string TokenName { get; set; }
+        public string TokenSymbol { get; set; }
         public int Quantity { get; set; }
     }
 }
