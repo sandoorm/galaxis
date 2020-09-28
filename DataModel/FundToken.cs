@@ -5,7 +5,7 @@ namespace GalaxisProjectWebAPI.DataModel
     public class FundToken
     {
         public uint Timestamp { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
 
         public int FundId { get; set; }
         public Fund Fund { get; set; }

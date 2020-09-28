@@ -12,6 +12,7 @@ using GalaxisProjectWebAPI.Model.Token;
 using GalaxisProjectWebAPI.Infrastructure;
 
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
+using DataModelFundToken = GalaxisProjectWebAPI.DataModel.FundToken;
 
 namespace GalaxisProjectWebAPI.Model
 {
@@ -121,17 +122,18 @@ namespace GalaxisProjectWebAPI.Model
 
             if (tokenAllocations != null)
             {
-                uint batchTimeStamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-                foreach (var tokenAllocation in tokenAllocations)
+                uint batchTimeStamp = GetCurrentBatchTimeStamp();
+
+                var requestedFund = await GetFundAsync(fundAddress);
+                if (requestedFund != null)
                 {
-                    var requestedFund = await GetFundAsync(fundAddress);
-                    if (requestedFund != null)
+                    var fundTokenSnapshot = new List<DataModelFundToken>();
+                    foreach (var tokenAllocation in tokenAllocations)
                     {
-                        var token = this.galaxisContext
-                            .Tokens
+                        var token = this.galaxisContext.Tokens
                             .FirstOrDefault(t => t.Symbol == tokenAllocation.TokenSymbol);
 
-                        requestedFund.FundTokens.Add(new FundToken
+                        fundTokenSnapshot.Add(new FundToken
                         {
                             FundId = requestedFund.Id,
                             Quantity = tokenAllocation.Quantity,
@@ -139,9 +141,10 @@ namespace GalaxisProjectWebAPI.Model
                             TokenId = token.Id
                         });
                     }
-                }
 
-                result = await this.galaxisContext.SaveChangesAsync();
+                    await this.galaxisContext.FundTokens.AddRangeAsync(fundTokenSnapshot);
+                    result = await this.galaxisContext.SaveChangesAsync();
+                }
             }
 
             return result;
@@ -152,6 +155,11 @@ namespace GalaxisProjectWebAPI.Model
             return await this.galaxisContext
                 .Funds
                 .FirstOrDefaultAsync(fund => fund.FundAddress == fundAddress);
+        }
+
+        private uint GetCurrentBatchTimeStamp()
+        {
+            return (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
         private void AssignFundToCompany(Company company, DataModelFund fund)

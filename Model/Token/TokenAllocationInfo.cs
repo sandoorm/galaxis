@@ -3,6 +3,6 @@
     public class TokenAllocationInfo
     {
         public string TokenSymbol { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
     }
 }
