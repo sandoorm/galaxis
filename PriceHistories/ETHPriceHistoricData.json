@@ -1,0 +1,302 @@
+[
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601150400,
+    "usdPrice": 352.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601154000,
+    "usdPrice": 354.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601157600,
+    "usdPrice": 353.20,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601161200,
+    "usdPrice": 354.27,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601164800,
+    "usdPrice": 354.63,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601168400,
+    "usdPrice": 354.87,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601172000,
+    "usdPrice": 360.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601175600,
+    "usdPrice": 361.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601179200,
+    "usdPrice": 357.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601182800,
+    "usdPrice": 360.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601186400,
+    "usdPrice": 354.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601190000,
+    "usdPrice": 353.20,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601193600,
+    "usdPrice": 354.27,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601197200,
+    "usdPrice": 354.87,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601200800,
+    "usdPrice": 355.47,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601204400,
+    "usdPrice": 353.20,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601200801,
+    "usdPrice": 354.27,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601211600,
+    "usdPrice": 354.09,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601215200,
+    "usdPrice": 354.22,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601218800,
+    "usdPrice": 353.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601222400,
+    "usdPrice": 352.98,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601226000,
+    "usdPrice": 354.61,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601229600,
+    "usdPrice": 356.00,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601222280,
+    "usdPrice": 353.33250807,
+    "eurPrice": 353.33250807
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601222400,
+    "usdPrice": 353.210015584,
+    "eurPrice": 353.210015584
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601222880,
+    "usdPrice": 353.617021506,
+    "eurPrice": 353.617021506
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601232300,
+    "usdPrice": 353.78415184,
+    "eurPrice": 353.78415184
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601235180,
+    "usdPrice": 353.323774545,
+    "eurPrice": 353.323774545
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601236200,
+    "usdPrice": 353.194246283,
+    "eurPrice": 353.194246283
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601236740,
+    "usdPrice": 354.337374432,
+    "eurPrice": 354.337374432
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601240340,
+    "usdPrice": 353.825225858,
+    "eurPrice": 353.825225858
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601243940,
+    "usdPrice": 353.880102039,
+    "eurPrice": 353.880102039
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601247540,
+    "usdPrice": 354.776831376,
+    "eurPrice": 354.776831376
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601251140,
+    "usdPrice": 357.311163086,
+    "eurPrice": 357.311163086
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601254740,
+    "usdPrice": 358.442791048,
+    "eurPrice": 358.442791048
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601258340,
+    "usdPrice": 359.148933554,
+    "eurPrice": 359.148933554
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601261940,
+    "usdPrice": 358.733793527,
+    "eurPrice": 358.733793527
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601265540,
+    "usdPrice": 358.606018301,
+    "eurPrice": 358.606018301
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601269140,
+    "usdPrice": 359.29774762,
+    "eurPrice": 359.29774762
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601272740,
+    "usdPrice": 358.406939175,
+    "eurPrice": 358.406939175
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601276340,
+    "usdPrice": 357.117757998,
+    "eurPrice": 357.117757998
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601279940,
+    "usdPrice": 358.421200982,
+    "eurPrice": 358.421200982
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601283540,
+    "usdPrice": 358.590872898,
+    "eurPrice": 358.590872898
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601287140,
+    "usdPrice": 358.502835765,
+    "eurPrice": 358.502835765
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601290740,
+    "usdPrice": 359.521487767,
+    "eurPrice": 359.521487767
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601294340,
+    "usdPrice": 358.527388023,
+    "eurPrice": 358.527388023
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601297940,
+    "usdPrice": 364.414149421,
+    "eurPrice": 364.414149421
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601301540,
+    "usdPrice": 363.287326824,
+    "eurPrice": 363.287326824
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601305140,
+    "usdPrice": 363.517359491,
+    "eurPrice": 363.517359491
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601308740,
+    "usdPrice": 365.398114398,
+    "eurPrice": 365.398114398
+  }
+]

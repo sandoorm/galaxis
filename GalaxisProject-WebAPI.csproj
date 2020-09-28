@@ -20,6 +20,7 @@
     <Folder Include="Model\DummyDataFactory\" />
     <Folder Include="Model\FundPerformanceCalculation\" />
     <Folder Include="Model\TokenPriceHistoryProvider\" />
+    <Folder Include="Model\Converters\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App">

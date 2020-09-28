@@ -70,7 +70,7 @@ namespace GalaxisProject_WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseMvc();
 
             app.UseSwagger();

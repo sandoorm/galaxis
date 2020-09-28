@@ -18,8 +18,8 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
                 },
                 new DataModelToken
                 {
-                    Symbol = "BTC",
-                    Name = "Bitcoin",
+                    Symbol = "WETH",
+                    Name = "WETH",
                     Decimals = 18
                 },
                 new DataModelToken
@@ -32,13 +32,7 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
                 {
                     Symbol = "CDAI",
                     Name = "cDAI",
-                    Decimals = 18
-                },
-                new DataModelToken
-                {
-                    Symbol = "WETH",
-                    Name = "WETH",
-                    Decimals = 18
+                    Decimals = 8
                 }
             };
         }

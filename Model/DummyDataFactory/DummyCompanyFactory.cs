@@ -11,19 +11,15 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
             {
                 new DataModelCompany
                 {
-                    CompanyName = "Solidity Services Ltd.",
-                    CompanyAddress = "X street 1.",
-                    RegistrationNumber = "343434",
-                    vatNumber = "34898734",
-                    OfficialEmailAddress = "office@x.com"
-                },
-                new DataModelCompany
-                {
-                    CompanyName = "Y Ltd.",
-                    CompanyAddress = "Y street 10.",
-                    RegistrationNumber = "343434",
-                    vatNumber = "34898734",
-                    OfficialEmailAddress = "office@y.com"
+                    CompanyName = "Galaxis LTD",
+                    CompanyAddress = "22-26 Shelton Street, London, UK",
+                    RegistrationNumber = "WC2H 9JQ",
+                    vatNumber = "GB 55 888 5555 444",
+                    OfficialEmailAddress = "hello@galaxis.network",
+                    ContactPersonName = "Alice Hodl",
+                    Position = "pm",
+                    ContactPersonPhoneNumber = "+44 756 387 85 85",
+                    ContactPersonEmail = "pm@galaxis.network"
                 }
             };
         }

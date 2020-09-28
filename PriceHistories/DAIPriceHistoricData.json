@@ -1,0 +1,302 @@
+﻿[
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601150400,
+    "usdPrice": 0.9900,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601154000,
+    "usdPrice": 1.0111,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601157600,
+    "usdPrice": 0.9940,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601161200,
+    "usdPrice": 1.0040,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601164800,
+    "usdPrice": 1.0060,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601168400,
+    "usdPrice": 1.0085,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601172000,
+    "usdPrice": 0.9911,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601175600,
+    "usdPrice": 0.9870,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601179200,
+    "usdPrice": 0.9995,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601182800,
+    "usdPrice": 0.9992,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601186400,
+    "usdPrice": 1.0075,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601190000,
+    "usdPrice": 1.0004,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601193600,
+    "usdPrice": 1.0010,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601197200,
+    "usdPrice": 1.0006,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601200800,
+    "usdPrice": 0.9973,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601204400,
+    "usdPrice": 0.9953,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601200801,
+    "usdPrice": 0.9933,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601211600,
+    "usdPrice": 0.9913,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601215200,
+    "usdPrice": 0.9893,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601218800,
+    "usdPrice": 0.9873,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601222400,
+    "usdPrice": 1.0053,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601226000,
+    "usdPrice": 0.9933,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601229600,
+    "usdPrice": 0.9913,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601222280,
+    "usdPrice": 1.01106827342,
+    "eurPrice": 1.01106827342
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601222400,
+    "usdPrice": 1.01213129929,
+    "eurPrice": 1.01213129929
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601222880,
+    "usdPrice": 1.01225896607,
+    "eurPrice": 1.01225896607
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601232300,
+    "usdPrice": 1.01267689208,
+    "eurPrice": 1.01267689208
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601235180,
+    "usdPrice": 1.01572240285,
+    "eurPrice": 1.01572240285
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601236200,
+    "usdPrice": 1.01581539409,
+    "eurPrice": 1.01581539409
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601236740,
+    "usdPrice": 1.01389465803,
+    "eurPrice": 1.01389465803
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601240340,
+    "usdPrice": 1.01281259494,
+    "eurPrice": 1.01281259494
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601243940,
+    "usdPrice": 1.01248654536,
+    "eurPrice": 1.01248654536
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601247540,
+    "usdPrice": 1.01356094943,
+    "eurPrice": 1.01356094943
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601251140,
+    "usdPrice": 1.01517771033,
+    "eurPrice": 1.01517771033
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601254740,
+    "usdPrice": 1.01009400049,
+    "eurPrice": 1.01009400049
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601258340,
+    "usdPrice": 1.0112075688,
+    "eurPrice": 1.0112075688
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601261940,
+    "usdPrice": 1.01412767805,
+    "eurPrice": 1.01412767805
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601265540,
+    "usdPrice": 1.0159489559,
+    "eurPrice": 1.0159489559
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601269140,
+    "usdPrice": 1.01686213576,
+    "eurPrice": 1.01686213576
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601272740,
+    "usdPrice": 1.01566818584,
+    "eurPrice": 1.01566818584
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601276340,
+    "usdPrice": 1.01287039194,
+    "eurPrice": 1.01287039194
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601279940,
+    "usdPrice": 1.01307820869,
+    "eurPrice": 1.01307820869
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601283540,
+    "usdPrice": 1.0136139633,
+    "eurPrice": 1.0136139633
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601287140,
+    "usdPrice": 1.01367638114,
+    "eurPrice": 1.01367638114
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601290740,
+    "usdPrice": 1.009712977,
+    "eurPrice": 1.009712977
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601294340,
+    "usdPrice": 1.01391312287,
+    "eurPrice": 1.01391312287
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601297940,
+    "usdPrice": 1.01206341093,
+    "eurPrice": 1.01206341093
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601301540,
+    "usdPrice": 1.00838311351,
+    "eurPrice": 1.00838311351
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601305140,
+    "usdPrice": 1.01360085737,
+    "eurPrice": 1.01360085737
+  },
+  {
+    "baseTokenSymbol": "DAI",
+    "timestamp": 1601308740,
+    "usdPrice": 1.01746679393,
+    "eurPrice": 1.01746679393
+  }
+]

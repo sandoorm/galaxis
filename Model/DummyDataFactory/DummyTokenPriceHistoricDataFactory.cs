@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+
+using GalaxisProjectWebAPI.Model.Converters;
 
 using DataModelTokenPriceHistoricData = GalaxisProjectWebAPI.DataModel.TokenPriceHistoricData;
 
@@ -6,39 +9,52 @@ namespace GalaxisProjectWebAPI.Model.DummyDataFactory
 {
     public class DummyTokenPriceHistoricDataFactory : IDummyDataFactory<DataModelTokenPriceHistoricData>
     {
-        public DummyTokenPriceHistoricDataFactory()
+        private readonly TokenPriceHistoricDataConverter converter;
+
+        public DummyTokenPriceHistoricDataFactory(TokenPriceHistoricDataConverter converter)
         {
+            this.converter = converter;
         }
 
         public List<DataModelTokenPriceHistoricData> CreateDummyDatas()
         {
-            return new List<DataModelTokenPriceHistoricData>
+            var converter = new TokenPriceHistoricDataConverter();
+            var finalResult = new List<DataModelTokenPriceHistoricData>();
+
+            var ethHistoricFilePath = Path.Combine(Directory.GetCurrentDirectory(),
+                            "PriceHistories", "ETHPriceHistoricData.json");
+            List<PriceHistoricData> ethResult = converter.Convert(ethHistoricFilePath);
+
+            var wethHistoricFilePath = Path.Combine(Directory.GetCurrentDirectory(),
+                            "PriceHistories", "WETHPriceHistoricData.json");
+            List<PriceHistoricData> wethResult = converter.Convert(wethHistoricFilePath);
+
+            var daiHistoricFilePath = Path.Combine(Directory.GetCurrentDirectory(),
+                            "PriceHistories", "DAIPriceHistoricData.json");
+            List<PriceHistoricData> daiResult = converter.Convert(daiHistoricFilePath);
+
+            finalResult.AddRange(Convert(1, ethResult));
+            finalResult.AddRange(Convert(2, ethResult));
+            finalResult.AddRange(Convert(3, ethResult));
+
+            return finalResult;
+        }
+
+        private List<DataModelTokenPriceHistoricData> Convert(int tokenId, List<PriceHistoricData> wethResult)
+        {
+            var result = new List<DataModelTokenPriceHistoricData>();
+            foreach (var item in wethResult)
             {
-                new DataModelTokenPriceHistoricData
+                result.Add(new DataModelTokenPriceHistoricData
                 {
-                    TokenId = 1,
-                    Timestamp = 1601113599,
-                    UsdPrice = 345
-                },
-                new DataModelTokenPriceHistoricData
-                {
-                    TokenId = 1,
-                    Timestamp = 1601113589,
-                    UsdPrice = 342
-                },
-                new DataModelTokenPriceHistoricData
-                {
-                    TokenId = 1,
-                    Timestamp = 1601113579,
-                    UsdPrice = 340
-                },
-                new DataModelTokenPriceHistoricData
-                {
-                    TokenId = 2,
-                    Timestamp = 1601113559,
-                    UsdPrice = 10550
-                }
-            };
+                    TokenId = tokenId,
+                    Timestamp = item.Timestamp,
+                    UsdPrice = item.USDPrice,
+                    EurPrice = item.EURPrice
+                });
+            }
+
+            return result;
         }
     }
 }

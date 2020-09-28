@@ -1,0 +1,302 @@
+﻿[
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601150400,
+    "usdPrice": 344.96,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601154000,
+    "usdPrice": 350.46,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601157600,
+    "usdPrice": 342.60,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601161200,
+    "usdPrice": 347.18,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601164800,
+    "usdPrice": 351.32,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601168400,
+    "usdPrice": 344.80,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601172000,
+    "usdPrice": 352.80,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601175600,
+    "usdPrice": 357.39,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601179200,
+    "usdPrice": 346.29,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601182800,
+    "usdPrice": 350.28,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601186400,
+    "usdPrice": 350.46,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601190000,
+    "usdPrice": 342.60,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601193600,
+    "usdPrice": 347.18,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601197200,
+    "usdPrice": 351.32,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601200800,
+    "usdPrice": 344.80,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601204400,
+    "usdPrice": 346.14,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601200801,
+    "usdPrice": 350.72,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601211600,
+    "usdPrice": 343.47,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601215200,
+    "usdPrice": 347.14,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601218800,
+    "usdPrice": 349.47,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601222400,
+    "usdPrice": 342.39,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601226000,
+    "usdPrice": 347.52,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601229600,
+    "usdPrice": 352.44,
+    "eurPrice": 0
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601222280,
+    "usdPrice": 355.674034304,
+    "eurPrice": 355.674034304
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601222400,
+    "usdPrice": 355.199777726,
+    "eurPrice": 355.199777726
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601222880,
+    "usdPrice": 355.528948396,
+    "eurPrice": 355.528948396
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601232300,
+    "usdPrice": 355.712363916,
+    "eurPrice": 355.712363916
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601235180,
+    "usdPrice": 355.522713483,
+    "eurPrice": 355.522713483
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601236200,
+    "usdPrice": 354.98873115,
+    "eurPrice": 354.98873115
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601236740,
+    "usdPrice": 355.435068502,
+    "eurPrice": 355.435068502
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601240340,
+    "usdPrice": 355.887521563,
+    "eurPrice": 355.887521563
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601243940,
+    "usdPrice": 355.450539479,
+    "eurPrice": 355.450539479
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601247540,
+    "usdPrice": 356.562282191,
+    "eurPrice": 356.562282191
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601251140,
+    "usdPrice": 357.335429335,
+    "eurPrice": 357.335429335
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601254740,
+    "usdPrice": 358.446265664,
+    "eurPrice": 358.446265664
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601258340,
+    "usdPrice": 358.612352527,
+    "eurPrice": 358.612352527
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601261940,
+    "usdPrice": 358.834367147,
+    "eurPrice": 358.834367147
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601265540,
+    "usdPrice": 360.101749186,
+    "eurPrice": 360.101749186
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601269140,
+    "usdPrice": 361.256128843,
+    "eurPrice": 361.256128843
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601272740,
+    "usdPrice": 360.832449486,
+    "eurPrice": 360.832449486
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601276340,
+    "usdPrice": 359.825915577,
+    "eurPrice": 359.825915577
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601279940,
+    "usdPrice": 358.37369166,
+    "eurPrice": 358.37369166
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601283540,
+    "usdPrice": 360.912335686,
+    "eurPrice": 360.912335686
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601287140,
+    "usdPrice": 359.168138536,
+    "eurPrice": 359.168138536
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601290740,
+    "usdPrice": 359.496478059,
+    "eurPrice": 359.496478059
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601294340,
+    "usdPrice": 360.355195057,
+    "eurPrice": 360.355195057
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601297940,
+    "usdPrice": 362.144506481,
+    "eurPrice": 362.144506481
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601301540,
+    "usdPrice": 362.20433501,
+    "eurPrice": 362.20433501
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601305140,
+    "usdPrice": 364.657568749,
+    "eurPrice": 364.657568749
+  },
+  {
+    "baseTokenSymbol": "WETH",
+    "timestamp": 1601308740,
+    "usdPrice": 366.069351441,
+    "eurPrice": 366.069351441
+  }
+]

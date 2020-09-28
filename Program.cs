@@ -12,6 +12,7 @@ using GalaxisProject_WebAPI;
 using GalaxisProjectWebAPI.Infrastructure;
 using GalaxisProjectWebAPI.Model.DummyDataFactory;
 using GalaxisProjectWebAPI.DataModel;
+using GalaxisProjectWebAPI.Model.Converters;
 
 namespace Galaxis_WebAPI
 {
@@ -31,7 +32,7 @@ namespace Galaxis_WebAPI
                 .Build();
 
             MigrateDbContext<GalaxisDbContext>(host);
-            
+
             host.Run();
         }
 
@@ -44,7 +45,7 @@ namespace Galaxis_WebAPI
 
                 var dbContext = services.GetRequiredService<TContext>();
                 dbContext.Database.Migrate();
-                // CreateDummyDataIfNeeded(dbContext);
+                CreateDummyDataIfNeeded(dbContext);
             }
         }
 
@@ -55,7 +56,7 @@ namespace Galaxis_WebAPI
             dummyDataStorage.SaveDummyDatas(new DummyCompanyFactory());
             dummyDataStorage.SaveDummyDatas(new DummyFundFactory());
             dummyDataStorage.SaveDummyDatas(new DummyTokenFactory());
-            dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory());
+            dummyDataStorage.SaveDummyDatas(new DummyTokenPriceHistoricDataFactory(new TokenPriceHistoricDataConverter()));
 
             AddDummyFundTokenData(galaxisContext);
         }
