@@ -48,27 +48,26 @@ namespace GalaxisProjectWebAPI.Model
                 .FundTokens
                 .Include(item => item.Token)
                 .Where(x => x.FundId == fund.Id)
+                .OrderByDescending(x => x.Timestamp)
                 .ToListAsync();
 
-            var groupedFundTokens = joinedFundTokens.GroupBy(
-                x => new { x.Token.Id, x.Token.Symbol },
-                x => new { x.Timestamp, x.Quantity },
-                (key, result) => new { TokenDescriptor = key, QuantitiesByTimestamp = result });
+            IGrouping<uint, DataModelFundToken> lastSnapshotGroup = joinedFundTokens
+                .GroupBy(x => x.Timestamp)
+                .First();
 
-            var relevantFundTokenList = new TokenList<FundTokenInfo>();
-            foreach (var group in groupedFundTokens)
+            var resultFundTokenInfos = lastSnapshotGroup.Select(ConvertToFundTokenInfo).ToList();
+            return new TokenList<FundTokenInfo>(resultFundTokenInfos);
+        }
+
+        private FundTokenInfo ConvertToFundTokenInfo(DataModelFundToken fundToken)
+        {
+            return new FundTokenInfo
             {
-                var relevantFundToken = group.QuantitiesByTimestamp.OrderByDescending(x => x.Timestamp).First();
-                relevantFundTokenList.TokenInfos.Add(new FundTokenInfo
-                {
-                    TokenId = group.TokenDescriptor.Id,
-                    TokenSymbol = group.TokenDescriptor.Symbol,
-                    TimeStamp = relevantFundToken.Timestamp,
-                    Quantity = relevantFundToken.Quantity
-                });
-            }
-
-            return relevantFundTokenList;
+                TokenId = fundToken.TokenId,
+                TokenSymbol = fundToken.Token.Symbol,
+                Quantity = fundToken.Quantity,
+                TimeStamp = fundToken.Timestamp
+            };
         }
 
         public async Task<int> CreateFundAsync(FundCreateRequest fundCreateRequest)
