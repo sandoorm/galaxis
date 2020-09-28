@@ -78,13 +78,6 @@ namespace Galaxis_WebAPI
                     TokenId = 1,
                     Quantity = 2,
                     Timestamp = 1601120664
-                },
-                new FundToken
-                {
-                    FundId = 2,
-                    TokenId = 2,
-                    Quantity = 1,
-                    Timestamp = 1601120654
                 }
             };
 

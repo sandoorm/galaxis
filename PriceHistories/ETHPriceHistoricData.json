@@ -298,5 +298,23 @@
     "timestamp": 1601308740,
     "usdPrice": 365.398114398,
     "eurPrice": 365.398114398
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601308740,
+    "usdPrice": 365.398114398,
+    "eurPrice": 365.398114398
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601312340,
+    "usdPrice": 365.307984337,
+    "eurPrice": 365.307984337
+  },
+  {
+    "baseTokenSymbol": "ETH",
+    "timestamp": 1601316060,
+    "usdPrice": 365.607452362,
+    "eurPrice": 365.607452362
   }
 ]

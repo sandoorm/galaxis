@@ -63,6 +63,8 @@ namespace GalaxisProjectWebAPI.Migrations
 
                     b.Property<string>("FundAddress");
 
+                    b.Property<string>("FundShareTokenAddress");
+
                     b.Property<bool>("HighWaterMark");
 
                     b.Property<bool>("HurdleRate");
@@ -85,6 +87,8 @@ namespace GalaxisProjectWebAPI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<string>("ReportingCurrency");
 
                     b.HasKey("Id");
 

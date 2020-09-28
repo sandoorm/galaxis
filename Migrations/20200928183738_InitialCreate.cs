@@ -52,6 +52,7 @@ namespace GalaxisProjectWebAPI.Migrations
                     CompanyId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     FundAddress = table.Column<string>(nullable: true),
+                    FundShareTokenAddress = table.Column<string>(nullable: true),
                     InvestmentFundManager = table.Column<string>(nullable: true),
                     InvestmentFocus = table.Column<string>(nullable: true),
                     HighWaterMark = table.Column<bool>(nullable: false),
@@ -61,6 +62,7 @@ namespace GalaxisProjectWebAPI.Migrations
                     DepositCloseTimeStamp = table.Column<long>(nullable: false),
                     CloseTimeStamp = table.Column<long>(nullable: false),
                     BaseCurrency = table.Column<string>(nullable: true),
+                    ReportingCurrency = table.Column<string>(nullable: true),
                     MinimumContribution = table.Column<double>(nullable: false),
                     MaximumContribution = table.Column<double>(nullable: false),
                     MinimumCapital = table.Column<double>(nullable: false),
@@ -105,7 +107,7 @@ namespace GalaxisProjectWebAPI.Migrations
                 columns: table => new
                 {
                     Timestamp = table.Column<long>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
+                    Quantity = table.Column<double>(nullable: false),
                     FundId = table.Column<int>(nullable: false),
                     TokenId = table.Column<int>(nullable: false)
                 },

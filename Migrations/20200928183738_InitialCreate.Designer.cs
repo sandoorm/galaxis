@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GalaxisProjectWebAPI.Migrations
 {
     [DbContext(typeof(GalaxisDbContext))]
-    [Migration("20200928110251_QuantityResolved")]
-    partial class QuantityResolved
+    [Migration("20200928183738_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,8 @@ namespace GalaxisProjectWebAPI.Migrations
 
                     b.Property<string>("FundAddress");
 
+                    b.Property<string>("FundShareTokenAddress");
+
                     b.Property<bool>("HighWaterMark");
 
                     b.Property<bool>("HurdleRate");
@@ -87,6 +89,8 @@ namespace GalaxisProjectWebAPI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<string>("ReportingCurrency");
 
                     b.HasKey("Id");
 
