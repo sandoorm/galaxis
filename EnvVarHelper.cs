@@ -6,5 +6,9 @@
         // "User Id=galaxis;Password=galaxis;Server=localhost;Port=5432;Database=galaxis;";
         public static string GetGalaxisDbConnectionString() =>
             "User Id=galaxis-user;Password=galaxis-pw;Server=172.30.199.252;Port=5432;Database=sampledb10;";
+
+
+
+
     }
 }
