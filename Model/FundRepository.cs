@@ -180,5 +180,44 @@ namespace GalaxisProjectWebAPI.Model
 
             return this.galaxisContext.SaveChanges();
         }
+
+        public async Task<int> ModifyFundAsync(string fundAddress, FundCreateRequest fundCreateRequest)
+        {
+            var fund = await GetFundAsync(fundAddress);
+            if (fund != null)
+            {
+                fund.Name = fundCreateRequest.Name;
+                fund.FundAddress = fundCreateRequest.Address;
+                fund.InvestmentFundManager = fundCreateRequest.InvestmentFundManager;
+                fund.InvestmentFocus = fundCreateRequest.InvestmentFocus;
+                fund.HighWaterMark = fundCreateRequest.HighWaterMark;
+                fund.HurdleRate = fundCreateRequest.HurdleRate;
+                fund.HurdleRatePercentage = fundCreateRequest.HurdleRatePercentage;
+                fund.DepositStartTimeStamp = fundCreateRequest.DepositStartTimeStamp;
+                fund.DepositCloseTimeStamp = fundCreateRequest.DepositCloseTimeStamp;
+                fund.CloseTimeStamp = fundCreateRequest.CloseTimeStamp;
+                fund.BaseCurrency = fundCreateRequest.BaseCurrency;
+                fund.MinimumContribution = fundCreateRequest.MinimumContribution;
+                fund.MaximumContribution = fundCreateRequest.MaximumContribution;
+                fund.IsLaunched = false;
+                fund.CompanyId = fundCreateRequest.CompanyId;
+
+                return await this.galaxisContext.SaveChangesAsync();
+            }
+
+            return 0;
+        }
+
+        public async Task<int> DeleteFundAsync(string fundAddress)
+        {
+            var fund = await GetFundAsync(fundAddress);
+            if (fund != null)
+            {
+                this.galaxisContext.Funds.Remove(fund);
+                this.galaxisContext.SaveChanges();
+            }
+
+            return 1;
+        }
     }
 }

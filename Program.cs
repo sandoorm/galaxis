@@ -44,7 +44,7 @@ namespace Galaxis_WebAPI
 
                 var dbContext = services.GetRequiredService<TContext>();
                 dbContext.Database.Migrate();
-                CreateDummyDataIfNeeded(dbContext);
+                // CreateDummyDataIfNeeded(dbContext);
             }
         }
 

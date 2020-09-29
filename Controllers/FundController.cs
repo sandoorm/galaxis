@@ -56,6 +56,18 @@ namespace GalaxisProjectWebAPI.Controllers
             return await this.fundRepository.CreateFundAsync(fundCreateRequest);
         }
 
+        [HttpPut("{fundAddress}/Modify")]
+        public async Task<int> ModifyFund(string fundAddress, [FromBody] FundCreateRequest fundCreateRequest)
+        {
+            return await this.fundRepository.ModifyFundAsync(fundAddress, fundCreateRequest);
+        }
+
+        [HttpDelete("{fundAddress}")]
+        public async Task<int> DeleteFund(string fundAddress)
+        {
+            return await this.fundRepository.DeleteFundAsync(fundAddress);
+        }   
+
         [HttpPost("{fundAddress}/Launch")]
         public async Task<int> LaunchFund(string fundAddress)
         {
@@ -66,6 +78,6 @@ namespace GalaxisProjectWebAPI.Controllers
         public async Task<int> AddTokenToFund(string fundAddress, [FromBody] FundTokenCreateRequest fundTokenCreateRequest)
         {
             return await this.fundRepository.CreateFundTokensAsync(fundAddress, fundTokenCreateRequest);
-        }
+        } 
     }
 }
