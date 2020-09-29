@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 using GalaxisProjectWebAPI.Infrastructure;
+using GalaxisProjectWebAPI.DataModel;
 using GalaxisProjectWebAPI.Model.Token;
 
 using DataModelFund = GalaxisProjectWebAPI.DataModel.Fund;
@@ -26,8 +26,9 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
         public async Task<FundPerformance> CalculateFundPerformance(string fundAddress)
         {
             var fund = await GetFundAsync(fundAddress);
-            uint currentTimeStamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            uint diff = currentTimeStamp - fund.DepositStartTimeStamp;
+            //uint currentTimeStamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            uint hardCodedTimeStamp = 1601316060;
+            uint diff = hardCodedTimeStamp - fund.DepositStartTimeStamp;
 
             int resultCount = (int)(diff / timeRange);
             var resultList = new List<long>();
@@ -50,11 +51,13 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 timeStampResults,
                 joinedFundTokens);
 
-            var priceHistory = await this.galaxisContext.TokenPriceHistoricDatas
+            TokenPriceHistoricData[] priceHistory = await this.galaxisContext.TokenPriceHistoricDatas
                 .Include(x => x.Token)
-                .ToListAsync();
+                .ToArrayAsync();
 
-            var groupedPriceHistory = priceHistory.GroupBy(
+            var relevantPriceHistory = ApplyHackOnTimeStamps(fundTokenMapping, priceHistory);
+
+            var groupedPriceHistory = relevantPriceHistory.GroupBy(
                 x => new { x.Timestamp },
                 x => new { x.Token.Symbol, x.UsdPrice },
                 (key, result) => new
@@ -63,34 +66,69 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                     Result = result
                 }).ToList();
 
-            var finalResult = fundTokenMapping.Keys.Join(groupedPriceHistory,
-                x => x,
+            var finalResult = fundTokenMapping.Join(groupedPriceHistory,
+                x => x.Key,
                 y => y.Key.Timestamp,
-                (x, y) => new { TokenAllocationDetails = x, TokenPriceDetails = y })
+                (x, y) => new { AllocationDetails = x, PriceDetails = y })
                 .ToList();
 
-            //foreach (var resultElement in finalResult)
-            //{
-            //    var currentAllocation = resultElement.TokenAllocationDetails;
-            //    var currentPriceDetails = resultElement.TokenPriceDetails;
+            var resultDictionary = new Dictionary<uint, double>();
+            foreach (var resultElement in finalResult)
+            {
+                var currentAllocation = resultElement.AllocationDetails;
+                var currentPriceDetails = resultElement.PriceDetails;
 
-            //    foreach (var item in currentAllocation.TokenSymbolAndQuantity)
-            //    {
-            //        var matchingPriceDetail = currentPriceDetails
-            //            .Result
-            //            .FirstOrDefault(x => x.Symbol == item.Symbol);
+                double currResultValue = 0;
+                foreach (var item in currentAllocation.Value)
+                {
+                    var matchingPriceDetail = currentPriceDetails
+                        .Result
+                        .FirstOrDefault(x => x.Symbol == item.TokenSymbol);
 
-            //        if (matchingPriceDetail != null)
-            //        {
-            //            var value = item.Quantity * matchingPriceDetail.UsdPrice;
-            //        }
-            //    }
+                    if (matchingPriceDetail != null)
+                    {
+                        //if (item.TokenSymbol == "CDAI")
+                        //{
+                        //    currResultValue += (item.Quantity * matchingPriceDetail.UsdPrice)
+                        //        + (item.Quantity * DAI Price)
+                        //}
+
+                        currResultValue += item.Quantity * matchingPriceDetail.UsdPrice;
+                    }
+                }
+
+                uint currResultTimeStamp = resultElement.PriceDetails.Key.Timestamp;
+                resultDictionary.Add(currResultTimeStamp, currResultValue);
+            }
 
             //    var quantityInfo = currentAllocation.TokenSymbolAndQuantity;
             //    var cucc = currentPriceDetails.Result;
-            //}
+            var performance = new FundPerformance();
+            performance.FundValuesByTimeStamps = resultDictionary;
 
-            return new FundPerformance();
+            return performance;
+        }
+
+        private TokenPriceHistoricData[] ApplyHackOnTimeStamps(Dictionary<uint, List<TokenAllocationInfo>> fundTokenMapping, TokenPriceHistoricData[] priceHistory)
+        {
+            var etherResult = priceHistory.Where(x => x.Token.Symbol == "ETH").OrderBy(x => x.Timestamp).ToArray();
+            var wethResult = priceHistory.Where(x => x.Token.Symbol == "WETH").OrderBy(x => x.Timestamp).ToArray();
+            var daiResult = priceHistory.Where(x => x.Token.Symbol == "DAI").OrderBy(x => x.Timestamp).ToArray();
+            var cdaiResult = priceHistory.Where(x => x.Token.Symbol == "CDAI").OrderBy(x => x.Timestamp).ToArray();
+            HackAllTypesOfHistoricData(etherResult, fundTokenMapping.Keys.ToList());
+
+            return priceHistory;
+        }
+
+        private TokenPriceHistoricData[] HackAllTypesOfHistoricData(TokenPriceHistoricData[] priceHistory, List<uint> keys)
+        {
+            for (int i = 0; i < keys.Count; i++)
+            {
+                uint relevantKey = keys[i];
+                priceHistory[i].Timestamp = relevantKey;
+            }
+
+            return priceHistory;
         }
 
         private Dictionary<uint, List<TokenAllocationInfo>> MapFundTokensToRelevantTimeStamp(int resultCount, List<uint> timeStampResults, List<DataModelFundToken> joinedFundTokens)

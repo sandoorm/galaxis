@@ -1,9 +1,9 @@
-﻿namespace GalaxisProjectWebAPI.Model
+﻿using System.Collections.Generic;
+
+namespace GalaxisProjectWebAPI.Model
 {
     public class FundPerformance
     {
-        public FundPerformance()
-        {
-        }
+        public Dictionary<uint, double> FundValuesByTimeStamps { get; set; }
     }
 }
