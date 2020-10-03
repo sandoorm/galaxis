@@ -29,8 +29,6 @@ namespace GalaxisProjectWebAPI.Model
                 : new List<PriceHistoricData>();
         }
 
-        
-
         private List<PriceHistoricData> GetTokenHistory(string baseTokenSymbol, int tokenId)
         {
             return this.galaxisContext
