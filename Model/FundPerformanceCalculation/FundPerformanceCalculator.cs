@@ -98,7 +98,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 }
 
                 uint currResultTimeStamp = resultElement.PriceDetails.Key.Timestamp;
-                resultDictionary.Add(currResultTimeStamp, currResultValue);
+                resultDictionary.Add(currResultTimeStamp, Math.Round(currResultValue, 2));
             }
 
             //    var quantityInfo = currentAllocation.TokenSymbolAndQuantity;
