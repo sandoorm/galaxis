@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +48,6 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 .ToListAsync();
 
             var fundTokenMapping = MapFundTokensToRelevantTimeStamp(
-                resultCount,
                 timeStampResults,
                 joinedFundTokens);
 
@@ -131,24 +131,28 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             return priceHistory;
         }
 
-        private Dictionary<uint, List<TokenAllocationInfo>> MapFundTokensToRelevantTimeStamp(int resultCount, List<uint> timeStampResults, List<DataModelFundToken> joinedFundTokens)
+        private Dictionary<uint, List<TokenAllocationInfo>> MapFundTokensToRelevantTimeStamp(List<uint> timeStampResults, List<DataModelFundToken> joinedFundTokens)
         {
             var groupedFundTokens = joinedFundTokens.GroupBy(
                             x => new { x.Timestamp },
                             x => new { x.Token.Symbol, x.Quantity },
                             (key, result) => new { Key = key, TokenSymbolAndQuantity = result })
-                            .OrderBy(x => x.Key.Timestamp)
+                            .OrderByDescending(x => x.Key.Timestamp)
                             .ToList();
 
             Dictionary<uint, List<TokenAllocationInfo>> fundTokenMapping = new Dictionary<uint, List<TokenAllocationInfo>>();
 
+            // timestamp matching between result timestamps and grouped fund tokens by timestamps
+            uint[] groupedFundTokenTimeStamps = groupedFundTokens.Select(token => token.Key.Timestamp).ToArray();
+            List<Tuple<uint, int>> diffs = CalculateTimeStampDiffs(timeStampResults, groupedFundTokenTimeStamps);
+
             int fundTokenCount = groupedFundTokens.Count;
-            for (int i = 0; i < resultCount; i++)
+            for (int i = 0; i < timeStampResults.Count; i++)
             {
                 List<TokenAllocationInfo> allocationInfos = new List<TokenAllocationInfo>();
+                int relevantIndex = diffs.First(tuple => tuple.Item1 == timeStampResults[i]).Item2;
 
-                int index = i < fundTokenCount ? i : fundTokenCount - 1;
-                foreach (var info in groupedFundTokens[index].TokenSymbolAndQuantity)
+                foreach (var info in groupedFundTokens[relevantIndex].TokenSymbolAndQuantity)
                 {
                     allocationInfos.Add(new TokenAllocationInfo
                     {
@@ -161,6 +165,33 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             }
 
             return fundTokenMapping;
+        }
+
+        private List<Tuple<uint, int>> CalculateTimeStampDiffs(List<uint> timeStampResults, uint[] groupedFundTokenTimeStamps)
+        {
+            int fundTokenLength = groupedFundTokenTimeStamps.Length;
+
+            List<Tuple<uint, int>> fundTokenIndexByTimeStamps = new List<Tuple<uint, int>>();
+
+            for (int i = 0; i < timeStampResults.Count; i++)
+            {
+                uint currTimeStamp = timeStampResults[i];
+                List<Tuple<int, int>> diffsByIndexes = new List<Tuple<int, int>>();
+                for (int j = 0; j < fundTokenLength; j++)
+                {
+                    // diffs for timestamps
+                    diffsByIndexes.Add(
+                        Tuple.Create((int)Math.Abs(currTimeStamp - groupedFundTokenTimeStamps[j]), j));
+                }
+
+                int minDiff = diffsByIndexes.Min(tuple => tuple.Item1);
+
+                //overkill, needs optimization
+                int resultIndex = diffsByIndexes.First(x => x.Item1 == minDiff).Item2;
+                fundTokenIndexByTimeStamps.Add(Tuple.Create(currTimeStamp, resultIndex));
+            }
+
+            return fundTokenIndexByTimeStamps;
         }
 
         private async Task<DataModelFund> GetFundAsync(string fundAddress)
