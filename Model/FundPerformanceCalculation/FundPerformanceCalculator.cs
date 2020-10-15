@@ -72,7 +72,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 (x, y) => new { AllocationDetails = x, PriceDetails = y })
                 .ToList();
 
-            var resultDictionary = new Dictionary<uint, double>();
+            var performanceResultDatas = new List<PerformanceResultData>();
             foreach (var resultElement in finalResult)
             {
                 var currentAllocation = resultElement.AllocationDetails;
@@ -98,15 +98,16 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 }
 
                 uint currResultTimeStamp = resultElement.PriceDetails.Key.Timestamp;
-                resultDictionary.Add(currResultTimeStamp, Math.Round(currResultValue, 2));
+                performanceResultDatas.Add(new PerformanceResultData
+                {
+                    TimeStamp = currResultTimeStamp,
+                    PerformanceValue = Math.Round(currResultValue, 2)
+                });
             }
 
             //    var quantityInfo = currentAllocation.TokenSymbolAndQuantity;
             //    var cucc = currentPriceDetails.Result;
-            var performance = new FundPerformance();
-            performance.FundValuesByTimeStamps = resultDictionary;
-
-            return performance;
+            return new FundPerformance { PerformanceResultDatas = performanceResultDatas };
         }
 
         private TokenPriceHistoricData[] ApplyHackOnTimeStamps(Dictionary<uint, List<TokenAllocationInfo>> fundTokenMapping, TokenPriceHistoricData[] priceHistory)

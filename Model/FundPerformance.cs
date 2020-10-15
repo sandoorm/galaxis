@@ -4,6 +4,6 @@ namespace GalaxisProjectWebAPI.Model
 {
     public class FundPerformance
     {
-        public Dictionary<uint, double> FundValuesByTimeStamps { get; set; }
+        public List<PerformanceResultData> PerformanceResultDatas { get; set; }
     }
 }
