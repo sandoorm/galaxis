@@ -80,11 +80,14 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 x => x.Key,
                 y => y.Key.Timestamp,
                 (x, y) => new { AllocationDetails = x, PriceDetails = y })
-                .ToList();
+                .ToArray();
 
             var performanceResultDatas = new List<PerformanceResultData>();
-            foreach (var resultElement in finalResult)
+            double genesisPerformanceValue = 0;
+
+            for (int i = 0; i < finalResult.Length; i++)
             {
+                var resultElement = finalResult[i];
                 var currentAllocation = resultElement.AllocationDetails;
                 var currentPriceDetails = resultElement.PriceDetails;
 
@@ -99,7 +102,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                     {
                         if (item.TokenSymbol == "CDAI")
                         {
-                           var daiPriceResult = currentPriceDetails
+                            var daiPriceResult = currentPriceDetails
                                 .Result
                                 .FirstOrDefault(x => x.Symbol == "DAI");
 
@@ -118,10 +121,18 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 }
 
                 uint currResultTimeStamp = resultElement.PriceDetails.Key.Timestamp;
+                double performanceValue = Math.Round(currResultValue, 2);
+
+                if (i == 0)
+                {
+                    genesisPerformanceValue = performanceValue;
+                }
+
                 performanceResultDatas.Add(new PerformanceResultData
                 {
                     TimeStamp = currResultTimeStamp,
-                    PerformanceValue = Math.Round(currResultValue, 2)
+                    PerformanceValue = performanceValue,
+                    PerformancePercentage = Math.Round(((performanceValue / genesisPerformanceValue) * 100), 2),
                 });
             }
 
