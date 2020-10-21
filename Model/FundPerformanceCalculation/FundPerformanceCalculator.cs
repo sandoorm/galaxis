@@ -97,11 +97,21 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 
                     if (matchingPriceDetail != null)
                     {
-                        //if (item.TokenSymbol == "CDAI")
-                        //{
-                        //    currResultValue += (item.Quantity * matchingPriceDetail.UsdPrice)
-                        //        + (item.Quantity * DAI Price)
-                        //}
+                        if (item.TokenSymbol == "CDAI")
+                        {
+                           var daiPriceResult = currentPriceDetails
+                                .Result
+                                .FirstOrDefault(x => x.Symbol == "DAI");
+
+                            if (daiPriceResult != null)
+                            {
+                                // calculation given by Mate:
+                                // (cdai quantity * CDAI price) + (cdai quantity * DAI Price)
+                                var cdaiValue = (item.Quantity * matchingPriceDetail.UsdPrice)
+                                    + (item.Quantity * daiPriceResult.UsdPrice);
+                                currResultValue += cdaiValue;
+                            }
+                        }
 
                         currResultValue += item.Quantity * matchingPriceDetail.UsdPrice;
                     }
