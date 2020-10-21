@@ -16,8 +16,8 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 {
     public class FundPerformanceCalculator : IFundPerformanceCalculator
     {
-        // private readonly int timeRange = 86400;
-        private readonly int timeRange = 3600;
+        private readonly int timeRange = 86400;
+        private readonly int hardcodedHourToAdd = 7;
         private readonly GalaxisDbContext galaxisContext;
 
         public FundPerformanceCalculator(GalaxisDbContext galaxisContext)
@@ -28,18 +28,29 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
         public async Task<FundPerformance> CalculateFundPerformance(string fundAddress, int intervalInDays)
         {
             var fund = await GetFundAsync(fundAddress);
-            //uint currentTimeStamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            uint endTimeStamp = 1601316060;
-            uint diff = endTimeStamp - fund.DepositStartTimeStamp;
 
+            DateTime currentDateTime = DateTime.UtcNow;
+            uint todayTimeStamp = GetTimeStampAdjusted(currentDateTime);
+
+            DateTime depositDateTime = UnixTimeStampToDateTime(fund.DepositStartTimeStamp);
+            var startDateTime = new DateTime(depositDateTime.Year, depositDateTime.Month, depositDateTime.Day, hardcodedHourToAdd, 0, 0);
+            uint startTimeStamp = (uint)startDateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+
+            uint diff = todayTimeStamp - startTimeStamp;
             int resultCount = (int)(diff / timeRange);
             var resultList = new List<long>();
+
             for (int i = 0; i < resultCount; i++)
             {
-                resultList.Add(fund.DepositStartTimeStamp + (i * timeRange));
+                resultList.Add(startTimeStamp + (i * timeRange));
             }
 
-            var timeStampResults = resultList.Select(x => (uint)x).ToList();
+            if (currentDateTime > GetDateTimeAdjusted(currentDateTime))
+            {
+                resultList.Add(resultList.Last() + timeRange);
+            }
+
+            var timeStampResults = resultList.TakeLast(intervalInDays).Select(x => (uint)x).ToList();
 
             List<DataModelFundToken> joinedFundTokens = await this.galaxisContext
                 .FundTokens
@@ -56,9 +67,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 .Include(x => x.Token)
                 .ToArrayAsync();
 
-            var relevantPriceHistory = ApplyHackOnTimeStamps(fundTokenMapping, priceHistory);
-
-            var groupedPriceHistory = relevantPriceHistory.GroupBy(
+            var groupedPriceHistory = priceHistory.GroupBy(
                 x => new { x.Timestamp },
                 x => new { x.Token.Symbol, x.UsdPrice },
                 (key, result) => new
@@ -109,26 +118,25 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             return new FundPerformance { PerformanceResultDatas = performanceResultDatas };
         }
 
-        private TokenPriceHistoricData[] ApplyHackOnTimeStamps(Dictionary<uint, List<TokenAllocationInfo>> fundTokenMapping, TokenPriceHistoricData[] priceHistory)
+        private DateTime GetDateTimeAdjusted(DateTime dateTime)
         {
-            var etherResult = priceHistory.Where(x => x.Token.Symbol == "ETH").OrderBy(x => x.Timestamp).ToArray();
-            var wethResult = priceHistory.Where(x => x.Token.Symbol == "WETH").OrderBy(x => x.Timestamp).ToArray();
-            var daiResult = priceHistory.Where(x => x.Token.Symbol == "DAI").OrderBy(x => x.Timestamp).ToArray();
-            var cdaiResult = priceHistory.Where(x => x.Token.Symbol == "CDAI").OrderBy(x => x.Timestamp).ToArray();
-            HackAllTypesOfHistoricData(etherResult, fundTokenMapping.Keys.ToList());
-
-            return priceHistory;
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, hardcodedHourToAdd, 0, 0);
         }
 
-        private TokenPriceHistoricData[] HackAllTypesOfHistoricData(TokenPriceHistoricData[] priceHistory, List<uint> keys)
+        private uint GetTimeStampAdjusted(DateTime dateTime)
         {
-            for (int i = 0; i < keys.Count; i++)
-            {
-                uint relevantKey = keys[i];
-                priceHistory[i].Timestamp = relevantKey;
-            }
+            var dateTimeToday = GetDateTimeAdjusted(dateTime);
+            uint todayTimeStamp = (uint)dateTimeToday.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            return todayTimeStamp;
+        }
 
-            return priceHistory;
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+
+            return dtDateTime.ToUniversalTime();
         }
 
         private Dictionary<uint, List<TokenAllocationInfo>> MapFundTokensToRelevantTimeStamp(List<uint> timeStampResults, List<DataModelFundToken> joinedFundTokens)
