@@ -73,5 +73,16 @@ namespace GalaxisProjectWebAPI.Model
                 .Tokens
                 .FirstOrDefault(token => token.Symbol == baseTokenSymbol);
         }
+
+        public async Task<int> DeleteTokenPriceHistoryAsync(string baseTokenSymbol, uint timeStamp)
+        {
+            var relevant = await this.galaxisContext.TokenPriceHistoricDatas
+                .Include(x => x.Token)
+                .Where(x => x.Token.Symbol == baseTokenSymbol && x.Timestamp == timeStamp)
+                .ToListAsync();
+
+            this.galaxisContext.TokenPriceHistoricDatas.RemoveRange(relevant);
+            return this.galaxisContext.SaveChanges();
+        }
     }
 }

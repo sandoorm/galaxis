@@ -18,10 +18,11 @@ namespace GalaxisProjectWebAPI.Model.TokenPriceHistoryProvider
             var client = new WebClient();
             client.Headers.Add("X-CMC_PRO_API_KEY", API_KEY);
             client.Headers.Add("Accepts", "application/json");
-            string result = client.DownloadString(uriBuilder.ToString());
+            string response = client.DownloadString(uriBuilder.ToString());
 
-            var res = JsonConvert.DeserializeObject<PriceResultRoot>(result);
-            return res.data.ETH.quote.USD.price;
+            var result = JsonConvert.DeserializeObject<PriceResultRoot>(response);
+
+            return result.data.ETH.quote.USD.price;
         }
     }
 }

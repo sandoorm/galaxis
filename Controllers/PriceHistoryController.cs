@@ -32,5 +32,11 @@ namespace GalaxisProjectWebAPI.Controllers
             this.priceHistoryRepository
                 .AddTokenPriceHistoryDatasAsync(priceHistoricDataCreateRequest.priceHistoricDatas);
         }
+
+        [HttpDelete("DeletePriceHistory")]
+        public async Task<int> DeletePriceHistoricDatas(string baseTokenSymbol, uint timeStamp)
+        {
+            return await this.priceHistoryRepository.DeleteTokenPriceHistoryAsync(baseTokenSymbol, timeStamp);
+        }
     }
 }

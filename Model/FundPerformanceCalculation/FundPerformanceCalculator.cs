@@ -16,6 +16,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 {
     public class FundPerformanceCalculator : IFundPerformanceCalculator
     {
+        // private readonly int timeRange = 86400;
         private readonly int timeRange = 3600;
         private readonly GalaxisDbContext galaxisContext;
 
@@ -24,12 +25,12 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             this.galaxisContext = galaxisContext;
         }
 
-        public async Task<FundPerformance> CalculateFundPerformance(string fundAddress)
+        public async Task<FundPerformance> CalculateFundPerformance(string fundAddress, int intervalInDays)
         {
             var fund = await GetFundAsync(fundAddress);
             //uint currentTimeStamp = (uint)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            uint hardCodedTimeStamp = 1601316060;
-            uint diff = hardCodedTimeStamp - fund.DepositStartTimeStamp;
+            uint endTimeStamp = 1601316060;
+            uint diff = endTimeStamp - fund.DepositStartTimeStamp;
 
             int resultCount = (int)(diff / timeRange);
             var resultList = new List<long>();
@@ -105,8 +106,6 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 });
             }
 
-            //    var quantityInfo = currentAllocation.TokenSymbolAndQuantity;
-            //    var cucc = currentPriceDetails.Result;
             return new FundPerformance { PerformanceResultDatas = performanceResultDatas };
         }
 

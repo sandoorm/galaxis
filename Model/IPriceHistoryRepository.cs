@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GalaxisProjectWebAPI.Model
 {
@@ -7,5 +8,7 @@ namespace GalaxisProjectWebAPI.Model
         List<PriceHistoricData> GetAllHistoricPriceDataAsync(string baseTokenSymbol);
 
         void AddTokenPriceHistoryDatasAsync(List<PriceHistoricData> priceHistoryDatas);
+
+        Task<int> DeleteTokenPriceHistoryAsync(string baseTokenSymbol, uint timeStamp);
     }
 }
