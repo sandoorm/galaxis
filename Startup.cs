@@ -34,7 +34,8 @@ namespace GalaxisProject_WebAPI
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:8080",
-                                        "http://galaxisdeploypatched-galaxis.e4ff.pro-eu-west-1.openshiftapps.com")
+                                        "http://galaxisdeploypatched-galaxis.e4ff.pro-eu-west-1.openshiftapps.com",
+                                        "http://mvp.galaxis.network")
                                         .AllowAnyHeader()
                                         .AllowAnyMethod()
                                         .AllowCredentials();
