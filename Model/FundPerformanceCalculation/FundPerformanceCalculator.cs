@@ -83,7 +83,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                 .ToArray();
 
             var performanceResultDatas = new List<PerformanceResultData>();
-            double genesisPerformanceValue = 0;
+            double initialPerformanceValue = 0;
 
             for (int i = 0; i < finalResult.Length; i++)
             {
@@ -125,14 +125,14 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 
                 if (i == 0)
                 {
-                    genesisPerformanceValue = performanceValue;
+                    initialPerformanceValue = performanceValue;
                 }
 
                 performanceResultDatas.Add(new PerformanceResultData
                 {
                     TimeStamp = currResultTimeStamp,
                     PerformanceValue = performanceValue,
-                    PerformancePercentage = Math.Round(((performanceValue / genesisPerformanceValue) * 100), 2),
+                    PerformancePercentage = Math.Round(((performanceValue / initialPerformanceValue) * 100), 2),
                 });
             }
 
@@ -146,8 +146,8 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 
         private uint GetTimeStampAdjusted(DateTime dateTime)
         {
-            var dateTimeToday = GetDateTimeAdjusted(dateTime);
-            uint todayTimeStamp = (uint)dateTimeToday.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            var dateTimeAdjusted = GetDateTimeAdjusted(dateTime);
+            uint todayTimeStamp = (uint)dateTimeAdjusted.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             return todayTimeStamp;
         }
 
