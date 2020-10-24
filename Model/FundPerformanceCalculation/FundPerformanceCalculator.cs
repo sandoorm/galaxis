@@ -204,20 +204,21 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 
             for (int i = 0; i < timeStampResults.Count; i++)
             {
-                uint currTimeStamp = timeStampResults[i];
+                // fix
+                int currTimeStamp = (int)timeStampResults[i];
                 List<Tuple<int, int>> diffsByIndexes = new List<Tuple<int, int>>();
                 for (int j = 0; j < fundTokenLength; j++)
                 {
-                    // diffs for timestamps
+                    int currentFundTokenTimeStamp = (int)groupedFundTokenTimeStamps[j];
                     diffsByIndexes.Add(
-                        Tuple.Create((int)Math.Abs(currTimeStamp - groupedFundTokenTimeStamps[j]), j));
+                        Tuple.Create(Math.Abs(currTimeStamp - currentFundTokenTimeStamp), j));
                 }
 
                 int minDiff = diffsByIndexes.Min(tuple => tuple.Item1);
 
                 //overkill, needs optimization
                 int resultIndex = diffsByIndexes.First(x => x.Item1 == minDiff).Item2;
-                fundTokenIndexByTimeStamps.Add(Tuple.Create(currTimeStamp, resultIndex));
+                fundTokenIndexByTimeStamps.Add(Tuple.Create((uint)currTimeStamp, resultIndex));
             }
 
             return fundTokenIndexByTimeStamps;
