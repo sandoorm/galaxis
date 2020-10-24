@@ -110,8 +110,8 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
                             {
                                 // calculation given by Mate:
                                 // (cdai quantity * CDAI price) + (cdai quantity * DAI Price)
-                                var cdaiValue = (item.Quantity * matchingPriceDetail.UsdPrice)
-                                    + (item.Quantity * daiPriceResult.UsdPrice);
+                                var cdaiValue = (item.Quantity * matchingPriceDetail.UsdPrice);
+                                    // + (item.Quantity * daiPriceResult.UsdPrice);
                                 currResultValue += cdaiValue;
                             }
                         }
