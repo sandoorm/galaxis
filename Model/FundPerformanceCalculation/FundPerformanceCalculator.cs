@@ -34,7 +34,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
 
             DateTime depositDateTime = UnixTimeStampToDateTime(fund.DepositStartTimeStamp);
             var startDateTime = new DateTime(depositDateTime.Year, depositDateTime.Month, depositDateTime.Day, hardcodedHourToAdd, 0, 0);
-            uint startTimeStamp = (uint)startDateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            uint startTimeStamp = DateTimeToUnixTimeStamp(startDateTime);
 
             uint diff = todayTimeStamp - startTimeStamp;
             int resultCount = (int)(diff / timeRange);
@@ -66,6 +66,11 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             TokenPriceHistoricData[] priceHistory = await this.galaxisContext.TokenPriceHistoricDatas
                 .Include(x => x.Token)
                 .ToArrayAsync();
+
+            // Because the trigger does not happen always at the desired, specific times we need to adjust
+            // the stored timestamps to the hardcodedHourToAdd variable which acts like the base hour we want to report at.
+            // Later all the timestamps should be adjusted to the closing date for a particular day.
+            AdjustPriceHistoryTimestamps(priceHistory);
 
             var groupedPriceHistory = priceHistory.GroupBy(
                 x => new { x.Timestamp },
@@ -139,6 +144,16 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             return new FundPerformance { PerformanceResultDatas = performanceResultDatas };
         }
 
+        private void AdjustPriceHistoryTimestamps(TokenPriceHistoricData[] priceHistory)
+        {
+            for (int i = 0; i < priceHistory.Length; i++)
+            {
+                DateTime priceHistoryDateTime = UnixTimeStampToDateTime(priceHistory[i].Timestamp);
+                DateTime convertedDateTime = new DateTime(priceHistoryDateTime.Year, priceHistoryDateTime.Month, priceHistoryDateTime.Day, hardcodedHourToAdd, 0, 0);
+                priceHistory[i].Timestamp = DateTimeToUnixTimeStamp(convertedDateTime);
+            }
+        }
+
         private DateTime GetDateTimeAdjusted(DateTime dateTime)
         {
             return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, hardcodedHourToAdd, 0, 0);
@@ -147,7 +162,7 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
         private uint GetTimeStampAdjusted(DateTime dateTime)
         {
             var dateTimeAdjusted = GetDateTimeAdjusted(dateTime);
-            uint todayTimeStamp = (uint)dateTimeAdjusted.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            uint todayTimeStamp = DateTimeToUnixTimeStamp(dateTimeAdjusted);
             return todayTimeStamp;
         }
 
@@ -158,6 +173,11 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
 
             return dtDateTime.ToUniversalTime();
+        }
+
+        public static uint DateTimeToUnixTimeStamp(DateTime dateTime)
+        {
+            return (uint)dateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
         private Dictionary<uint, List<TokenAllocationInfo>> MapFundTokensToRelevantTimeStamp(List<uint> timeStampResults, List<DataModelFundToken> joinedFundTokens)
