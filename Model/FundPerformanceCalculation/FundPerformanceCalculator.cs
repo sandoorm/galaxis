@@ -36,7 +36,6 @@ namespace GalaxisProjectWebAPI.Model.FundPerformanceCalculation
             var startDateTime = new DateTime(depositDateTime.Year, depositDateTime.Month, depositDateTime.Day, hardcodedHourToAdd, 0, 0);
             uint startTimeStamp = DateTimeToUnixTimeStamp(startDateTime);
 
-
             uint diff = todayTimeStamp - startTimeStamp;
             int resultCount = (int)(diff / timeRange);
             var resultList = new List<long>();
